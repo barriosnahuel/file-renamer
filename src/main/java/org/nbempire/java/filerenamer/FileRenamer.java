@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * TODO : JavaDoc : for FileRenamer.
  *
- * @author Thales - PNT Equipo 6.
+ * @author Nahuel Barrios.
  */
 @Component
 public class FileRenamer {
@@ -27,7 +27,7 @@ public class FileRenamer {
      *
      * @return {@link int}
      *
-     * @author Thales - PNT Equipo 6.
+     * @author Nahuel Barrios.
      */
     public int doMagic(String directoryPath, String inputPattern, String outputPattern) {
         File[] files = new File(directoryPath).listFiles();

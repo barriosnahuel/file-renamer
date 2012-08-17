@@ -1,9 +1,12 @@
+/**
+ * Created by: Nahuel Barrios.
+ * On: 08/09/10 at 17:52hs.
+ */
 package org.nbempire.java.filerenamer.domain;
 
 /**
  * @author Barrios, Nahuel.
- * @version 1.0
- * @since Sep 8, 2010, 5:52:56 PM
+ * @since 0.1
  */
 public class Field implements Comparable<Field> {
 
@@ -16,8 +19,6 @@ public class Field implements Comparable<Field> {
      *
      * @param fieldKey
      * @param fieldValue
-     *
-     * @author Thales - PNT Equipo 6.
      */
     public Field(String sortPattern, String fieldKey, String fieldValue) {
         this.sortPattern = sortPattern;
@@ -30,8 +31,7 @@ public class Field implements Comparable<Field> {
      *
      * @return {@link String} the key.
      *
-     * @author Thales - PNT Equipo 6.
-     * @since 26/05/2012.
+     * @since 0.1
      */
     public String getKey() {
         return key;
@@ -43,8 +43,7 @@ public class Field implements Comparable<Field> {
      * @param key
      *         {@link String} the key to set.
      *
-     * @author Thales - PNT Equipo 6.
-     * @since 26/05/2012.
+     * @since 0.1
      */
     public void setKey(String key) {
         this.key = key;
@@ -55,8 +54,7 @@ public class Field implements Comparable<Field> {
      *
      * @return {@link String} the value.
      *
-     * @author Thales - PNT Equipo 6.
-     * @since 26/05/2012.
+     * @since 0.1
      */
     public String getValue() {
         return value;
@@ -68,8 +66,7 @@ public class Field implements Comparable<Field> {
      * @param value
      *         {@link String} the value to set.
      *
-     * @author Thales - PNT Equipo 6.
-     * @since 26/05/2012.
+     * @since 0.1
      */
     public void setValue(String value) {
         this.value = value;

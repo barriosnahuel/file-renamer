@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 /**
  * TODO : JavaDoc : for FileNameServiceImpl.
  *
- * @author Thales - PNT Equipo 6.
+ * @author Nahuel Barrios.
  */
 @Service
 public class FileNameServiceImpl implements FileNameService {
@@ -49,7 +49,7 @@ public class FileNameServiceImpl implements FileNameService {
      *
      * @return {@link String}
      *
-     * @author Thales - PNT Equipo 6.
+     * @author Nahuel Barrios.
      */
     private String getFieldsSeparator(String pattern) {
         String tmp = pattern;
@@ -67,7 +67,7 @@ public class FileNameServiceImpl implements FileNameService {
      *
      * @return {@link List<String>}
      *
-     * @author Thales - PNT Equipo 6.
+     * @author Nahuel Barrios.
      */
     private List<String> getPatternsName(String pattern) {
         String tmp = pattern;
@@ -132,7 +132,7 @@ public class FileNameServiceImpl implements FileNameService {
      *
      * @return {@link String}
      *
-     * @author Thales - PNT Equipo 6.
+     * @author Nahuel Barrios.
      */
     private String getCompleteName(FileName fileName) {
         return fileName.getName().concat(".").concat(fileName.getExtension().toString());

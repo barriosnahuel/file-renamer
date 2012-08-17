@@ -3,7 +3,7 @@ package org.nbempire.java.filerenamer.domain;
 /**
  * TODO : JavaDoc : for FileName.
  *
- * @author Thales - PNT Equipo 6.
+ * @author Nahuel Barrios.
  */
 public class FileName {
 
@@ -16,7 +16,7 @@ public class FileName {
      * @param name
      * @param extension
      *
-     * @author Thales - PNT Equipo 6.
+     * @author Nahuel Barrios.
      */
     public FileName(String name, Extensions extension) {
         this.name = name;
@@ -28,7 +28,7 @@ public class FileName {
      *
      * @return {@link String} the name.
      *
-     * @author Thales - PNT Equipo 6.
+     * @author Nahuel Barrios.
      * @since 26/05/2012.
      */
     public String getName() {
@@ -41,7 +41,7 @@ public class FileName {
      * @param name
      *         {@link String} the name to set.
      *
-     * @author Thales - PNT Equipo 6.
+     * @author Nahuel Barrios.
      * @since 26/05/2012.
      */
     public void setName(String name) {
@@ -53,7 +53,7 @@ public class FileName {
      *
      * @return {@link Extensions} the extension.
      *
-     * @author Thales - PNT Equipo 6.
+     * @author Nahuel Barrios.
      * @since 26/05/2012.
      */
     public Extensions getExtension() {
@@ -66,7 +66,7 @@ public class FileName {
      * @param extension
      *         {@link Extensions} the extension to set.
      *
-     * @author Thales - PNT Equipo 6.
+     * @author Nahuel Barrios.
      * @since 26/05/2012.
      */
     public void setExtension(Extensions extension) {

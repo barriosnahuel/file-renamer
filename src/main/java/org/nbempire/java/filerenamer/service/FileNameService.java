@@ -5,7 +5,7 @@ import org.nbempire.java.filerenamer.domain.FileName;
 /**
  * TODO : JavaDoc : for FileNameService.
  *
- * @author Thales - PNT Equipo 6.
+ * @author Nahuel Barrios.
  */
 public interface FileNameService {
 
@@ -18,7 +18,7 @@ public interface FileNameService {
      *
      * @return {@link String}
      *
-     * @author Thales - PNT Equipo 6.
+     * @author Nahuel Barrios.
      */
     String rename(FileName fileName, String inputPattern, String outputPattern);
 
@@ -29,7 +29,7 @@ public interface FileNameService {
      *
      * @return {@link FileName}
      *
-     * @author Thales - PNT Equipo 6.
+     * @author Nahuel Barrios.
      */
     FileName createFrom(String name);
 

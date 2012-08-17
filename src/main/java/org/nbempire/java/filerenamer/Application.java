@@ -6,7 +6,7 @@ import org.nbempire.java.bocui.commandline.CommandLineKeys;
 /**
  * TODO : JavaDoc : for Application.
  *
- * @author Thales - PNT Equipo 6.
+ * @author Nahuel Barrios.
  */
 public class Application {
 

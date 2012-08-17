@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  * TODO : JavaDoc : for FileRenamerComponenteTest.
  *
- * @author Thales - PNT Equipo 6.
+ * @author Nahuel Barrios.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/applicationContext-componenteTest.xml")
