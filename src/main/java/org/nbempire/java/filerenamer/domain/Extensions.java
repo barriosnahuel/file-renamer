@@ -1,6 +1,6 @@
 /**
  * Created by: Nahuel Barrios.
- * On: 17/08/12 at 19:05hs.
+ * On: 08/09/10 at 17:52hs.
  */
 package org.nbempire.java.filerenamer.domain;
 
@@ -13,7 +13,25 @@ package org.nbempire.java.filerenamer.domain;
  * @since 0.1
  */
 public enum Extensions {
-
-    mp3, txt, jpg, jpeg, png
+    /**
+     * @since 0.1
+     */
+    mp3,
+    /**
+     * @since 0.1
+     */
+    txt,
+    /**
+     * @since 0.1
+     */
+    jpg,
+    /**
+     * @since 0.1
+     */
+    jpeg,
+    /**
+     * @since 0.1
+     */
+    png
 
 }

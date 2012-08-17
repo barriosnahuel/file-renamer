@@ -19,6 +19,8 @@ public class Field implements Comparable<Field> {
      *
      * @param fieldKey
      * @param fieldValue
+     *
+     * @since 0.1
      */
     public Field(String sortPattern, String fieldKey, String fieldValue) {
         this.sortPattern = sortPattern;
@@ -72,11 +74,25 @@ public class Field implements Comparable<Field> {
         this.value = value;
     }
 
+    /**
+     * @return
+     *
+     * @since 0.1
+     */
     @Override
     public String toString() {
         return "Field [key=" + key + ", value=" + value + "]";
     }
 
+    /**
+     * TODO : Javadoc for compareTo
+     *
+     * @param otherObject
+     *
+     * @return
+     *
+     * @since 0.1
+     */
     public int compareTo(Field otherObject) {
         int firstIdx = sortPattern.indexOf(key);
         int secondIdx = sortPattern.indexOf(otherObject.getKey());

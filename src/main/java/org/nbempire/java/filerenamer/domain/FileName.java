@@ -1,9 +1,14 @@
+/**
+ * Created by: Nahuel Barrios.
+ * On: 08/09/10 at 17:52hs.
+ */
 package org.nbempire.java.filerenamer.domain;
 
 /**
  * TODO : JavaDoc : for FileName.
  *
  * @author Nahuel Barrios.
+ * @since 0.1
  */
 public class FileName {
 
@@ -16,7 +21,7 @@ public class FileName {
      * @param name
      * @param extension
      *
-     * @author Nahuel Barrios.
+     * @since 0.1
      */
     public FileName(String name, Extensions extension) {
         this.name = name;
@@ -28,8 +33,7 @@ public class FileName {
      *
      * @return {@link String} the name.
      *
-     * @author Nahuel Barrios.
-     * @since 26/05/2012.
+     * @since 0.1
      */
     public String getName() {
         return name;
@@ -41,8 +45,7 @@ public class FileName {
      * @param name
      *         {@link String} the name to set.
      *
-     * @author Nahuel Barrios.
-     * @since 26/05/2012.
+     * @since 0.1
      */
     public void setName(String name) {
         this.name = name;
@@ -53,8 +56,7 @@ public class FileName {
      *
      * @return {@link Extensions} the extension.
      *
-     * @author Nahuel Barrios.
-     * @since 26/05/2012.
+     * @since 0.1
      */
     public Extensions getExtension() {
         return extension;
@@ -66,13 +68,17 @@ public class FileName {
      * @param extension
      *         {@link Extensions} the extension to set.
      *
-     * @author Nahuel Barrios.
-     * @since 26/05/2012.
+     * @since 0.1
      */
     public void setExtension(Extensions extension) {
         this.extension = extension;
     }
 
+    /**
+     * @return
+     *
+     * @since 0.1
+     */
     @Override
     public String toString() {
         return "FileName [name=" + name + ", extension=" + extension + "]";

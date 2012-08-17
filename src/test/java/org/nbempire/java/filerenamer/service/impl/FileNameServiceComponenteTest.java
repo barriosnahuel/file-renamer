@@ -1,3 +1,7 @@
+/**
+ * Created by: Nahuel Barrios.
+ * On: 17/08/12 at 19:22hs.
+ */
 package org.nbempire.java.filerenamer.service.impl;
 
 import junit.framework.Assert;
@@ -13,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * TODO : JavaDoc : for FileNameServiceComponenteTest.
  *
  * @author Nahuel Barrios.
+ * @since 0.1
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/applicationContext-componenteTest.xml")

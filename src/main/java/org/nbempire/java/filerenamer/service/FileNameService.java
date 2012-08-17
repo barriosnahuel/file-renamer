@@ -1,3 +1,7 @@
+/**
+ * Created by: Nahuel Barrios.
+ * On: 08/09/10 at 17:52hs.
+ */
 package org.nbempire.java.filerenamer.service;
 
 import org.nbempire.java.filerenamer.domain.FileName;
@@ -6,6 +10,7 @@ import org.nbempire.java.filerenamer.domain.FileName;
  * TODO : JavaDoc : for FileNameService.
  *
  * @author Nahuel Barrios.
+ * @since 0.1
  */
 public interface FileNameService {
 
@@ -18,7 +23,7 @@ public interface FileNameService {
      *
      * @return {@link String}
      *
-     * @author Nahuel Barrios.
+     * @since 0.1
      */
     String rename(FileName fileName, String inputPattern, String outputPattern);
 
@@ -29,7 +34,7 @@ public interface FileNameService {
      *
      * @return {@link FileName}
      *
-     * @author Nahuel Barrios.
+     * @since 0.1
      */
     FileName createFrom(String name);
 

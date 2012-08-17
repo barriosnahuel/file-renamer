@@ -1,3 +1,7 @@
+/**
+ * Created by: Nahuel Barrios.
+ * On: 08/09/10 at 17:52hs.
+ */
 package org.nbempire.java.filerenamer;
 
 import java.io.File;
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Component;
  * TODO : JavaDoc : for FileRenamer.
  *
  * @author Nahuel Barrios.
+ * @since 0.1
  */
 @Component
 public class FileRenamer {
@@ -27,7 +32,7 @@ public class FileRenamer {
      *
      * @return {@link int}
      *
-     * @author Nahuel Barrios.
+     * @since 0.1
      */
     public int doMagic(String directoryPath, String inputPattern, String outputPattern) {
         File[] files = new File(directoryPath).listFiles();

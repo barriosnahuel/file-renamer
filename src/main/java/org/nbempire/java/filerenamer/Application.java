@@ -1,3 +1,7 @@
+/**
+ * Created by: Nahuel Barrios.
+ * On: 08/09/10 at 17:52hs.
+ */
 package org.nbempire.java.filerenamer;
 
 import org.nbempire.java.boc6.console.ConsoleUtil;
@@ -7,6 +11,7 @@ import org.nbempire.java.bocui.commandline.CommandLineKeys;
  * TODO : JavaDoc : for Application.
  *
  * @author Nahuel Barrios.
+ * @since 0.1
  */
 public class Application {
 
@@ -14,6 +19,8 @@ public class Application {
      * Método principal que debe ser ejecutado para iniciar la aplicación.
      *
      * @param arguments
+     *
+     * @since 0.1
      */
     public static void main(String[] arguments) {
         // BasicConfigurator.configure();// Configuro Log4j.

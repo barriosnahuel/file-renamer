@@ -1,3 +1,7 @@
+/**
+ * Created by: Nahuel Barrios.
+ * On: 08/09/10 at 17:52hs.
+ */
 package org.nbempire.java.filerenamer.service.impl;
 
 import java.util.*;
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Service;
  * TODO : JavaDoc : for FileNameServiceImpl.
  *
  * @author Nahuel Barrios.
+ * @since 0.1
  */
 @Service
 public class FileNameServiceImpl implements FileNameService {
@@ -49,7 +54,7 @@ public class FileNameServiceImpl implements FileNameService {
      *
      * @return {@link String}
      *
-     * @author Nahuel Barrios.
+     * @since 0.1
      */
     private String getFieldsSeparator(String pattern) {
         String tmp = pattern;
@@ -67,7 +72,7 @@ public class FileNameServiceImpl implements FileNameService {
      *
      * @return {@link List<String>}
      *
-     * @author Nahuel Barrios.
+     * @since 0.1
      */
     private List<String> getPatternsName(String pattern) {
         String tmp = pattern;
@@ -86,6 +91,16 @@ public class FileNameServiceImpl implements FileNameService {
         return patternsName;
     }
 
+    /**
+     * @param fileName
+     * @param pattern
+     * @param fieldsSeparator
+     * @param patternsName
+     *
+     * @return
+     *
+     * @since 0.1
+     */
     private Map<String, String> parseFieldsFromPattern(FileName fileName, String pattern, String fieldsSeparator, List<String> patternsName) {
         Map<String, String> fields = new HashMap<String, String>();
         String source = this.getCompleteName(fileName);
@@ -132,7 +147,7 @@ public class FileNameServiceImpl implements FileNameService {
      *
      * @return {@link String}
      *
-     * @author Nahuel Barrios.
+     * @since 0.1
      */
     private String getCompleteName(FileName fileName) {
         return fileName.getName().concat(".").concat(fileName.getExtension().toString());
