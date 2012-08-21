@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.nbempire.java</groupId>
-    <artifactId>filerenamer</artifactId>
+    <artifactId>file-renamer</artifactId>
     <version>0.1</version>
 
     <name>FileRenamer</name>
     <description>Backend project to rename file's name.</description>
 
     <properties>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <!--Setting this property only here is enough.-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <targetJdk>1.6</targetJdk>
     </properties>
@@ -45,6 +45,14 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${targetJdk}</source>
+                    <target>${targetJdk}</target>
+                </configuration>
+            </plugin>
             <plugin>
                 <!--To install source into local repository-->
                 <!--mvn source:jar install-->
