@@ -23,11 +23,11 @@ import org.springframework.stereotype.Service;
 public class FileNameServiceImpl implements FileNameService {
 
     public String rename(FileName fileName, String inputPattern, String outputPattern) {
-        String fieldsSeparator = this.getFieldsSeparator(inputPattern);
+        String inputFieldsSeparator = this.getFieldsSeparator(inputPattern);
 
         List<String> inputPatternsName = this.getPatternsName(inputPattern);
 
-        Map<String, String> keysAndValues = this.parseFieldsFromPattern(fileName, inputPattern, fieldsSeparator, inputPatternsName);
+        Map<String, String> keysAndValues = this.parseFieldsFromPattern(fileName, inputPattern, inputFieldsSeparator, inputPatternsName);
 
         SortedSet<Field> fields = new TreeSet<Field>();
         for (String eachPatternName : inputPatternsName) {
@@ -35,10 +35,11 @@ public class FileNameServiceImpl implements FileNameService {
         }
 
         String newName = "";
+        String outputFieldsSeparator = this.getFieldsSeparator(outputPattern);
         for (Field field : fields) {
-            newName += field.getValue() + fieldsSeparator;
+            newName += field.getValue() + outputFieldsSeparator;
         }
-        newName = newName.substring(0, newName.length() - fieldsSeparator.length());
+        newName = newName.substring(0, newName.length() - outputFieldsSeparator.length());
 
         if (fileName.getExtension() != null) {
             newName += '.' + fileName.getExtension().toString();

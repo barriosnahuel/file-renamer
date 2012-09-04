@@ -14,10 +14,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * TODO : JavaDoc : for FileNameServiceComponenteTest.
+ * Test for {@link FileNameServiceImpl}.
  *
  * @author Nahuel Barrios.
- * @since 0.1
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/applicationContext-componenteTest.xml")

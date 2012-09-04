@@ -35,6 +35,7 @@ public class FileRenamer {
      * @since 0.1
      */
     public int doMagic(String directoryPath, String inputPattern, String outputPattern) {
+        System.out.println("--> doMagic: directoryPath: " + directoryPath);
         File[] files = new File(directoryPath).listFiles();
 
         int counter = 0;
@@ -51,6 +52,7 @@ public class FileRenamer {
             counter++;
         }
 
+        System.out.println("<-- doMagic: directoryPath: " + directoryPath + "; Renombrados: " + counter + " archivos.");
         return counter;
     }
 
