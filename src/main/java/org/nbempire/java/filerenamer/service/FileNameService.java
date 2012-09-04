@@ -7,7 +7,7 @@ package org.nbempire.java.filerenamer.service;
 import org.nbempire.java.filerenamer.domain.FileName;
 
 /**
- * TODO : JavaDoc : for FileNameService.
+ * Service for the entity {@link FileName}.
  *
  * @author Nahuel Barrios.
  * @since 0.1
@@ -15,24 +15,28 @@ import org.nbempire.java.filerenamer.domain.FileName;
 public interface FileNameService {
 
     /**
-     * TODO : JavaDoc : for FileNameService.rename().
+     * Rename the <code>fileName</code> from <code>inputPattern</code> to <code>outputPattern</code>.
      *
      * @param fileName
+     *         The FileName to rename.
      * @param inputPattern
+     *         The input pattern of the file name.
      * @param outputPattern
+     *         The desired output pattern of the file name.
      *
-     * @return {@link String}
+     * @return {@link String} The renamed file name.
      *
      * @since 0.1
      */
     String rename(FileName fileName, String inputPattern, String outputPattern);
 
     /**
-     * TODO : JavaDoc : for FileNameService.createFrom().
+     * Creates a new FileName from the specified <code>name</code>
      *
      * @param name
+     *         A file name.
      *
-     * @return {@link FileName}
+     * @return {@link FileName} The created FileName.
      *
      * @since 0.1
      */

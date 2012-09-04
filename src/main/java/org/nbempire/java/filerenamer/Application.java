@@ -8,7 +8,7 @@ import org.nbempire.java.boc6.console.ConsoleUtil;
 import org.nbempire.java.bocui.commandline.CommandLineKeys;
 
 /**
- * TODO : JavaDoc : for Application.
+ * Main class that has the main method to execute.
  *
  * @author Nahuel Barrios.
  * @since 0.1

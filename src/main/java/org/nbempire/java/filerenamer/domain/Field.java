@@ -74,30 +74,16 @@ public class Field implements Comparable<Field> {
         this.value = value;
     }
 
-    /**
-     * @return
-     *
-     * @since 0.1
-     */
     @Override
     public String toString() {
         return "Field [key=" + key + ", value=" + value + "]";
     }
 
-    /**
-     * TODO : Javadoc for compareTo
-     *
-     * @param otherObject
-     *
-     * @return
-     *
-     * @since 0.1
-     */
+    @Override
     public int compareTo(Field otherObject) {
         int firstIdx = sortPattern.indexOf(key);
         int secondIdx = sortPattern.indexOf(otherObject.getKey());
 
         return new Integer(firstIdx).compareTo(new Integer(secondIdx));
     }
-
 }

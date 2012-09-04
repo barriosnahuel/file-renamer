@@ -5,7 +5,7 @@
 package org.nbempire.java.filerenamer;
 
 /**
- * TODO : JavaDoc : for MainKeys.
+ * Abstract class to put main app constants keys.
  *
  * @author Nahuel Barrios.
  * @since 0.1

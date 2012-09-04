@@ -14,7 +14,7 @@ import org.nbempire.java.filerenamer.service.FileNameService;
 import org.springframework.stereotype.Service;
 
 /**
- * TODO : JavaDoc : for FileNameServiceImpl.
+ * Implementation of the interface {@link FileNameService}.
  *
  * @author Nahuel Barrios.
  * @since 0.1
@@ -27,7 +27,7 @@ public class FileNameServiceImpl implements FileNameService {
 
         List<String> inputPatternsName = this.getPatternsName(inputPattern);
 
-        Map<String, String> keysAndValues = this.parseFieldsFromPattern(fileName, inputPattern, inputFieldsSeparator, inputPatternsName);
+        Map<String, String> keysAndValues = this.getFieldsFromFileNameBasedOnPatternKeys(fileName, inputFieldsSeparator, inputPatternsName);
 
         SortedSet<Field> fields = new TreeSet<Field>();
         for (String eachPatternName : inputPatternsName) {
@@ -49,11 +49,12 @@ public class FileNameServiceImpl implements FileNameService {
     }
 
     /**
-     * TODO : JavaDoc : for FileNameServiceImpl.getFieldsSeparator().
+     * Inspects the <code>pattern</code> to guess which is the fields separator.
      *
      * @param pattern
+     *         String with a pattern of a file name.
      *
-     * @return {@link String}
+     * @return The fields separator.
      *
      * @since 0.1
      */
@@ -67,11 +68,12 @@ public class FileNameServiceImpl implements FileNameService {
     }
 
     /**
-     * TODO : JavaDoc : for FileNameServiceImpl.getPatternsName().
+     * Inspects the <code>pattern</code> to identify pattern's members.
      *
      * @param pattern
+     *         The pattern.
      *
-     * @return {@link List<String>}
+     * @return List of Strings containing each identified pattern member.
      *
      * @since 0.1
      */
@@ -94,15 +96,17 @@ public class FileNameServiceImpl implements FileNameService {
 
     /**
      * @param fileName
-     * @param pattern
+     *         The FileName to parse.
      * @param fieldsSeparator
-     * @param patternsName
+     *         the fields separator from the specified <code>fileName</code>.
+     * @param patternKeys
+     *         List of Strings containing pattern keywords.
      *
-     * @return
+     * @return Map containing a pair of patternKeyword-keywordValue.
      *
      * @since 0.1
      */
-    private Map<String, String> parseFieldsFromPattern(FileName fileName, String pattern, String fieldsSeparator, List<String> patternsName) {
+    private Map<String, String> getFieldsFromFileNameBasedOnPatternKeys(FileName fileName, String fieldsSeparator, List<String> patternKeys) {
         Map<String, String> fields = new HashMap<String, String>();
         String source = this.getCompleteName(fileName);
 
@@ -110,30 +114,30 @@ public class FileNameServiceImpl implements FileNameService {
             return fields;
         }
 
-        for (int idx = 0; idx < patternsName.size(); idx++) {
-            String aPatternName = patternsName.get(idx);
+        for (int idx = 0; idx < patternKeys.size(); idx++) {
+            String eachPatternKeyword = patternKeys.get(idx);
 
             int breakpoint = source.indexOf(fieldsSeparator);
 
-            String aValue = null;
-            if (breakpoint < 0 && (patternsName.size() - idx == 1)) {
+            String keywordValue = null;
+            if (breakpoint < 0 && (patternKeys.size() - idx == 1)) {
                 // Si entro por aca no hay mas separadores, entonces:
                 // a) Esta el (.) por la extension.
                 // b) No hay ninguna "marca" mas, solo esta el ultimo campo.
                 int dotBreakpoint = source.lastIndexOf('.');
                 if (dotBreakpoint > 0)// a)
                 {
-                    aValue = source.substring(0, dotBreakpoint);
+                    keywordValue = source.substring(0, dotBreakpoint);
                 } else
                 // b)
                 {
-                    aValue = source;
+                    keywordValue = source;
                 }
             } else {
-                aValue = source.substring(0, breakpoint);
+                keywordValue = source.substring(0, breakpoint);
             }
 
-            fields.put(aPatternName, aValue);
+            fields.put(eachPatternKeyword, keywordValue);
 
             source = source.substring(breakpoint + fieldsSeparator.length());
         }
@@ -142,11 +146,12 @@ public class FileNameServiceImpl implements FileNameService {
     }
 
     /**
-     * TODO : JavaDoc : for FileNameServiceImpl.getCompleteName().
+     * Concats the file name with its extension to return the complete name.
      *
      * @param fileName
+     *         The FileName.
      *
-     * @return {@link String}
+     * @return {@link String} with the file name and its extension concated with a dot.
      *
      * @since 0.1
      */

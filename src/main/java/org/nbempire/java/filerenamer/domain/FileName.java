@@ -5,7 +5,7 @@
 package org.nbempire.java.filerenamer.domain;
 
 /**
- * TODO : JavaDoc : for FileName.
+ * Entity that represents the name of a file.
  *
  * @author Nahuel Barrios.
  * @since 0.1
