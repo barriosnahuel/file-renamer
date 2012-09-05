@@ -8,6 +8,8 @@ import java.io.File;
 
 import junit.framework.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Test for {@link FileRenamer}.
@@ -20,6 +22,11 @@ public class FileRenamerComponenteTest {
 
     private static final String KEY_ARTIST = "artista";
     private static final String KEY_TITLE = "titulo";
+
+    /**
+     * Class logger.
+     */
+    final static Logger logger = LoggerFactory.getLogger(FileRenamerComponenteTest.class);
 
     /**
      * The FileRenamer to test.
@@ -59,7 +66,7 @@ public class FileRenamerComponenteTest {
         }
 
         //  Rollback.
-        System.out.println("Rollback...");
+        logger.info("Rollback...");
         renamedFiles = fileRenamer.doMagic(path, outputPattern, inputPattern);
         Assert.assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", 3, renamedFiles);
     }
@@ -96,7 +103,7 @@ public class FileRenamerComponenteTest {
         }
 
         //  Rollback.
-        System.out.println("Rollback...");
+        logger.info("Rollback...");
         renamedFiles = fileRenamer.doMagic(path, outputPattern, inputPattern);
         Assert.assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", 3, renamedFiles);
     }
@@ -137,7 +144,7 @@ public class FileRenamerComponenteTest {
         }
 
         //  Rollback.
-        System.out.println("Rollback...");
+        logger.info("Rollback...");
         renamedFiles = fileRenamer.doMagic(path, outputPattern, inputPattern);
         Assert.assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", numberOfParsedFiles, renamedFiles);
     }

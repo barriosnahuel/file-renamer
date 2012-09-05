@@ -4,7 +4,7 @@
 
     <groupId>org.nbempire.java</groupId>
     <artifactId>file-renamer</artifactId>
-    <version>0.1.2</version>
+    <version>0.1.2.1</version>
 
     <name>FileRenamer</name>
     <description>Backend project to rename file's name.</description>
@@ -16,16 +16,32 @@
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>3.1.1.RELEASE</version>
         </dependency>
+
+        <!--Own dependencies-->
         <dependency>
             <groupId>org.nbempire.java</groupId>
             <artifactId>boc6</artifactId>
             <version>0.1</version>
         </dependency>
+
+        <!--Logs-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.6</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>

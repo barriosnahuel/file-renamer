@@ -8,6 +8,8 @@ import java.io.File;
 
 import org.nbempire.java.filerenamer.service.FileNameService;
 import org.nbempire.java.filerenamer.service.impl.FileNameServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The FileRenamer.
@@ -16,6 +18,11 @@ import org.nbempire.java.filerenamer.service.impl.FileNameServiceImpl;
  * @since 0.1
  */
 public class FileRenamer {
+
+    /**
+     * Class logger.
+     */
+    final static Logger logger = LoggerFactory.getLogger(FileRenamer.class);
 
     /**
      * Main method of this FileRenamer that does all the magic to rename files. It renames every file under the specified
@@ -34,7 +41,7 @@ public class FileRenamer {
      * @since 0.1
      */
     public int doMagic(String directoryPath, String inputPattern, String outputPattern) {
-        System.out.println("--> doMagic: directoryPath: " + directoryPath);
+        logger.debug("--> doMagic: directoryPath: " + directoryPath);
         File[] files = new File(directoryPath).listFiles();
 
         FileNameService fileNameService = new FileNameServiceImpl();
@@ -49,13 +56,13 @@ public class FileRenamer {
                     throw new IllegalArgumentException("The file: \"" + newName + "\" wasn't renamed.");
                 }
             } catch (IllegalArgumentException illegalArgumentException) {
-                System.out.println("The following file wasn't renamed: \"" + file.getName() + "\"");
-                System.err.println(illegalArgumentException.getMessage());
+                logger.info("The following file wasn't renamed: \"" + file.getName() + "\"");
+                logger.info(illegalArgumentException.getMessage());
             }
             counter++;
         }
 
-        System.out.println("<-- doMagic: directoryPath: " + directoryPath + "; Renombrados: " + counter + " archivos.");
+        logger.debug("<-- doMagic: directoryPath: " + directoryPath + "; Renombrados: " + counter + " archivos.");
         return counter;
     }
 
