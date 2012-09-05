@@ -16,9 +16,10 @@ import org.nbempire.java.bocui.commandline.CommandLineKeys;
 public class Application {
 
     /**
-     * Método principal que debe ser ejecutado para iniciar la aplicación.
+     * Main method to execute the application.
      *
      * @param arguments
+     *         program arguments. It should be three.
      *
      * @since 0.1
      */

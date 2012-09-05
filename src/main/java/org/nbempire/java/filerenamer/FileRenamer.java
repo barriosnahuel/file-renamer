@@ -15,11 +15,7 @@ import org.nbempire.java.filerenamer.service.impl.FileNameServiceImpl;
  * @author Nahuel Barrios.
  * @since 0.1
  */
-//@Component
 public class FileRenamer {
-
-    //@Autowired
-    private FileNameService fileNameService;
 
     /**
      * Main method of this FileRenamer that does all the magic to rename files. It renames every file under the specified
@@ -41,14 +37,17 @@ public class FileRenamer {
         System.out.println("--> doMagic: directoryPath: " + directoryPath);
         File[] files = new File(directoryPath).listFiles();
 
+        FileNameService fileNameService = new FileNameServiceImpl();
         int counter = 0;
         while (counter < files.length) {
             File file = files[counter];
 
             try {
-                fileNameService = new FileNameServiceImpl();
                 String newName = fileNameService.rename(fileNameService.createFrom(file.getName()), inputPattern, outputPattern);
-                file.renameTo(new File(file.getParent() + "/" + newName));
+                boolean renamed = file.renameTo(new File(file.getParent() + "/" + newName));
+                if (!renamed) {
+                    throw new IllegalArgumentException("The file: \"" + newName + "\" wasn't renamed.");
+                }
             } catch (IllegalArgumentException illegalArgumentException) {
                 System.out.println("The following file wasn't renamed: \"" + file.getName() + "\"");
                 System.err.println(illegalArgumentException.getMessage());

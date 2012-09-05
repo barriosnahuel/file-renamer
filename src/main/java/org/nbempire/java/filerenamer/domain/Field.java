@@ -84,6 +84,6 @@ public class Field implements Comparable<Field> {
         int firstIdx = sortPattern.indexOf(key);
         int secondIdx = sortPattern.indexOf(otherObject.getKey());
 
-        return new Integer(firstIdx).compareTo(new Integer(secondIdx));
+        return new Integer(firstIdx).compareTo(secondIdx);
     }
 }
