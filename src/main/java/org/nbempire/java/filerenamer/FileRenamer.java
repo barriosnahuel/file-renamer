@@ -8,8 +8,6 @@ import java.io.File;
 
 import org.nbempire.java.filerenamer.service.FileNameService;
 import org.nbempire.java.filerenamer.service.impl.FileNameServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * The FileRenamer.
@@ -17,10 +15,10 @@ import org.springframework.stereotype.Component;
  * @author Nahuel Barrios.
  * @since 0.1
  */
-@Component
+//@Component
 public class FileRenamer {
 
-    @Autowired
+    //@Autowired
     private FileNameService fileNameService;
 
     /**
@@ -35,7 +33,7 @@ public class FileRenamer {
      * @param outputPattern
      *         The output pattern which will be used to rename the files.
      *
-     * @return The number of renamed files.
+     * @return The number of parsed files. <b>Not the number of renamed files.</b>
      *
      * @since 0.1
      */
@@ -52,7 +50,8 @@ public class FileRenamer {
                 String newName = fileNameService.rename(fileNameService.createFrom(file.getName()), inputPattern, outputPattern);
                 file.renameTo(new File(file.getParent() + "/" + newName));
             } catch (IllegalArgumentException illegalArgumentException) {
-                System.out.println("El siguiente archivo no pudo ser renombrado: " + file.getName());
+                System.out.println("The following file wasn't renamed: \"" + file.getName() + "\"");
+                System.err.println(illegalArgumentException.getMessage());
             }
             counter++;
         }

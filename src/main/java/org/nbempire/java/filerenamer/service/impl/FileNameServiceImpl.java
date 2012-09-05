@@ -48,6 +48,11 @@ public class FileNameServiceImpl implements FileNameService {
         return newName;
     }
 
+    public FileName createFrom(String name) {
+        int lastDotPosition = name.lastIndexOf(".");
+        return new FileName(name.substring(0, lastDotPosition), Extensions.valueOf(name.substring(lastDotPosition + 1)));
+    }
+
     /**
      * Inspects the <code>pattern</code> to guess which is the fields separator.
      *
@@ -110,36 +115,34 @@ public class FileNameServiceImpl implements FileNameService {
         Map<String, String> fields = new HashMap<String, String>();
         String source = this.getCompleteName(fileName);
 
-        if (source == null) {
-            return fields;
-        }
+        if (source != null) {
+            for (int idx = 0; idx < patternKeys.size(); idx++) {
+                String eachPatternKeyword = patternKeys.get(idx);
 
-        for (int idx = 0; idx < patternKeys.size(); idx++) {
-            String eachPatternKeyword = patternKeys.get(idx);
+                int breakpoint = source.indexOf(fieldsSeparator);
 
-            int breakpoint = source.indexOf(fieldsSeparator);
-
-            String keywordValue = null;
-            if (breakpoint < 0 && (patternKeys.size() - idx == 1)) {
-                // Si entro por aca no hay mas separadores, entonces:
-                // a) Esta el (.) por la extension.
-                // b) No hay ninguna "marca" mas, solo esta el ultimo campo.
-                int dotBreakpoint = source.lastIndexOf('.');
-                if (dotBreakpoint > 0)// a)
-                {
-                    keywordValue = source.substring(0, dotBreakpoint);
-                } else
-                // b)
-                {
-                    keywordValue = source;
+                String keywordValue;
+                if (breakpoint < 0 && (patternKeys.size() - idx == 1)) {
+                    // Si entro por aca no hay mas separadores.
+                    int dotBreakpoint = source.lastIndexOf('.');
+                    if (dotBreakpoint > 0) {
+                        //Esta el (.) por la extension.
+                        keywordValue = source.substring(0, dotBreakpoint);
+                    } else {
+                        //No hay ninguna "marca" mas, solo esta el ultimo campo.
+                        keywordValue = source;
+                    }
+                } else if (breakpoint >= 0) {
+                    keywordValue = source.substring(0, breakpoint);
+                } else {
+                    throw new IllegalArgumentException("The file \"" + this.getCompleteName(fileName) + "\" won't be renamed because it doesn't match the " +
+                                                               "pattern.");
                 }
-            } else {
-                keywordValue = source.substring(0, breakpoint);
+
+                fields.put(eachPatternKeyword, keywordValue);
+
+                source = source.substring(breakpoint + fieldsSeparator.length());
             }
-
-            fields.put(eachPatternKeyword, keywordValue);
-
-            source = source.substring(breakpoint + fieldsSeparator.length());
         }
 
         return fields;
@@ -157,11 +160,6 @@ public class FileNameServiceImpl implements FileNameService {
      */
     private String getCompleteName(FileName fileName) {
         return fileName.getName().concat(".").concat(fileName.getExtension().toString());
-    }
-
-    public FileName createFrom(String name) {
-        int lastDotPosition = name.lastIndexOf(".");
-        return new FileName(name.substring(0, lastDotPosition), Extensions.valueOf(name.substring(lastDotPosition + 1)));
     }
 
 }

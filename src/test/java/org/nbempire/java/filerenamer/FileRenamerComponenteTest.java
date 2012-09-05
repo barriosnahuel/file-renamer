@@ -31,7 +31,7 @@ public class FileRenamerComponenteTest {
      * Test method for {@link org.nbempire.java.filerenamer.FileRenamer#doMagic(java.lang.String, java.lang.String, java.lang.String)} .
      */
     @Test
-    public void testDoMagic_forrTest1WithRightPatterns_renameFiles() {
+    public void testDoMagic_forTest1WithRightPatterns_renameFiles() {
         String fileSeparator = System.getProperty("file.separator");
 
         String path = System.getProperty("user.dir") + fileSeparator;
@@ -68,7 +68,7 @@ public class FileRenamerComponenteTest {
      * Test method for {@link org.nbempire.java.filerenamer.FileRenamer#doMagic(java.lang.String, java.lang.String, java.lang.String)} .
      */
     @Test
-    public void testDoMagic_forrTest2WithRightPatterns_renameFiles() {
+    public void testDoMagic_forTest2WithRightPatterns_renameFiles() {
         String fileSeparator = System.getProperty("file.separator");
 
         String path = System.getProperty("user.dir") + fileSeparator;
@@ -99,6 +99,47 @@ public class FileRenamerComponenteTest {
         System.out.println("Rollback...");
         renamedFiles = fileRenamer.doMagic(path, outputPattern, inputPattern);
         Assert.assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", 3, renamedFiles);
+    }
+
+    /**
+     * Test method for {@link org.nbempire.java.filerenamer.FileRenamer#doMagic(java.lang.String, java.lang.String, java.lang.String)} .
+     */
+    @Test
+    public void testDoMagic_forTest3With1FileDoesntMatchPattern_renameAllFilesButThatOne() {
+        String fileSeparator = System.getProperty("file.separator");
+
+        String path = System.getProperty("user.dir") + fileSeparator;
+        path += "src" + fileSeparator + "test" + fileSeparator + "resources" + fileSeparator + "test3";
+
+        String inputPattern = "%a --- %t";
+        String outputPattern = "%t - %a";
+        int renamedFiles = fileRenamer.doMagic(path, inputPattern, outputPattern);
+
+        int numberOfParsedFiles = 4;
+        Assert.assertEquals(numberOfParsedFiles, renamedFiles);
+
+        File[] files = new File(path).listFiles();
+        Assert.assertNotNull(files);
+        Assert.assertEquals(numberOfParsedFiles, files.length);
+
+        for (File eachFile : files) {
+            String fileName = eachFile.getName();
+            if (fileName.indexOf('0') >= 0) {
+                Assert.assertEquals("artista0 _'- titulo0.mp3", fileName);
+            } else {
+                int indexOfArtist = fileName.indexOf(KEY_ARTIST);
+                int indexOfTitle = fileName.indexOf(KEY_TITLE);
+                Assert.assertTrue("Se perdió la información del artista.", indexOfArtist >= 0);
+                Assert.assertTrue("Se perdió la información del título.", indexOfTitle >= 0);
+
+                Assert.assertTrue("titulo debería haber quedado antes que artista", indexOfTitle < indexOfArtist);
+            }
+        }
+
+        //  Rollback.
+        System.out.println("Rollback...");
+        renamedFiles = fileRenamer.doMagic(path, outputPattern, inputPattern);
+        Assert.assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", numberOfParsedFiles, renamedFiles);
     }
 
 }
