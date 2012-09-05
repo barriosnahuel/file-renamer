@@ -32,6 +32,9 @@ public enum Extensions {
     /**
      * @since 0.1
      */
-    png
-
+    png,
+    /**
+     * @since 0.1.3
+     */
+    avi
 }
