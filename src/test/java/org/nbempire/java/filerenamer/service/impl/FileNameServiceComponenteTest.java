@@ -25,7 +25,7 @@ public class FileNameServiceComponenteTest {
     private FileNameService service = new FileNameServiceImpl();
 
     @Test
-    public void renameToPattern_withCommonPatter_returnCorrectFileName() {
+    public void rename_withRightPatterns_returnCorrectFileName() {
         String field1 = "artista";
         String field2 = "titulo.wow (original remix)";
 
@@ -46,7 +46,7 @@ public class FileNameServiceComponenteTest {
 
 
     @Test
-    public void createFrom_with2patternsSeparatedBySpace3Characters_returnFileName() {
+    public void rename_with2patternsSeparatedBySpace3Characters_returnFileName() {
         String field1 = "artista";
         String field2 = "titulo";
 
@@ -58,7 +58,7 @@ public class FileNameServiceComponenteTest {
     }
 
     @Test
-    public void createFrom_with2patternsWithMoreThanOneWordEachSeparatedBy1Character_returnFileName() {
+    public void rename_with2patternsWithMoreThanOneWordEachSeparatedBy1Character_returnFileName() {
         String field1 = "artista de 4 palabras";
         String field2 = "titulo de mas de 4 palabras";
 
@@ -70,7 +70,7 @@ public class FileNameServiceComponenteTest {
     }
 
     @Test
-    public void createFrom_with2patternsWithMoreThanOneWordEachAndDotsSeparatedBy1Character_returnFileName() {
+    public void rename_with2patternsWithMoreThanOneWordEachAndDotsSeparatedBy1Character_returnFileName() {
         String field1 = "artista de 4 palabras";
         String field2 = "titulo de mas.de.4 palabras";
 
@@ -82,7 +82,7 @@ public class FileNameServiceComponenteTest {
     }
 
     @Test
-    public void createFrom_with2patternsOfOneWordSeparatedBySpace_returnFileName() {
+    public void rename_with2patternsOfOneWordSeparatedBySpace_returnFileName() {
         String field1 = "07";
         String field2 = "titulo";
 
@@ -94,7 +94,7 @@ public class FileNameServiceComponenteTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void createFrom_withIncorrectPattern_dontRenameFileName() {
+    public void rename_withIncorrectPattern_dontRenameFileName() {
         String field1 = "artista";
         String field2 = "titulo";
 
