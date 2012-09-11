@@ -99,8 +99,8 @@ public class FileNameServiceComponenteTest {
         String field2 = "titulo";
 
         FileName fileName = new FileName(field1 + "-" + field2, Extensions.mp3);
-        service.rename(fileName, "%a - %t", "%t - %a");
-        Assert.fail("Debería haber tirado una excepción.");
+        String renamedFileName = service.rename(fileName, "%a - %t", "%t - %a");
+        Assert.fail("Debería haber tirado una excepción, pero se renombró el archivo y quedó como: " + renamedFileName);
     }
 
 }
