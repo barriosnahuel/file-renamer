@@ -54,25 +54,6 @@ public class FileNameServiceImpl implements FileNameService {
     }
 
     /**
-     * Inspects the <code>pattern</code> to guess which is the fields separator.
-     *
-     * @param pattern
-     *         String with a pattern of a file name.
-     *
-     * @return The fields separator.
-     *
-     * @since 0.1
-     */
-    private String getFieldsSeparator(String pattern) {
-        String tmp = pattern;
-
-        int firstBreakpoint = pattern.indexOf(MainKeys.SYMBOL_FIELDS_PREFFIX);
-        tmp = tmp.substring(firstBreakpoint + 2);
-
-        return tmp.substring(0, tmp.indexOf(MainKeys.SYMBOL_FIELDS_PREFFIX));
-    }
-
-    /**
      * Inspects the <code>pattern</code> to identify pattern's members.
      *
      * @param pattern
@@ -100,6 +81,25 @@ public class FileNameServiceImpl implements FileNameService {
     }
 
     /**
+     * Inspects the <code>pattern</code> to guess which is the fields separator.
+     *
+     * @param pattern
+     *         String with a pattern of a file name.
+     *
+     * @return The fields separator.
+     *
+     * @since 0.1
+     */
+    private String getFieldsSeparator(String pattern) {
+        String tmp = pattern;
+
+        int firstBreakpoint = pattern.indexOf(MainKeys.SYMBOL_FIELDS_PREFFIX);
+        tmp = tmp.substring(firstBreakpoint + 2);
+
+        return tmp.substring(0, tmp.indexOf(MainKeys.SYMBOL_FIELDS_PREFFIX));
+    }
+
+    /**
      * @param fileName
      *         The FileName to parse.
      * @param fieldsSeparator
@@ -113,35 +113,28 @@ public class FileNameServiceImpl implements FileNameService {
      */
     private Map<String, String> getFieldsFromFileNameBasedOnPatternKeys(FileName fileName, String fieldsSeparator, List<String> patternKeys) {
         Map<String, String> fields = new HashMap<String, String>();
-        String source = this.getCompleteName(fileName);
 
-        if (source != null) {
-            for (int idx = 0; idx < patternKeys.size(); idx++) {
-                String eachPatternKeyword = patternKeys.get(idx);
+        String nameWithoutExtension = fileName.getName();
+        if (nameWithoutExtension != null) {
+            int breakpoint = nameWithoutExtension.indexOf(fieldsSeparator);
+            if (breakpoint < 0) {
+                throw new IllegalArgumentException("The file \"" + getCompleteName(fileName) + "\" won't be renamed because it doesn't match the " +
+                                                           "pattern.");
+            }
 
-                int breakpoint = source.indexOf(fieldsSeparator);
-
+            for (String eachPatternKeyword : patternKeys) {
                 String keywordValue;
-                if (breakpoint < 0 && (patternKeys.size() - idx == 1)) {
-                    // Si entro por aca no hay mas separadores.
-                    int dotBreakpoint = source.lastIndexOf('.');
-                    if (dotBreakpoint > 0) {
-                        //Esta el (.) por la extension.
-                        keywordValue = source.substring(0, dotBreakpoint);
-                    } else {
-                        //No hay ninguna "marca" mas, solo esta el ultimo campo.
-                        keywordValue = source;
-                    }
-                } else if (breakpoint >= 0) {
-                    keywordValue = source.substring(0, breakpoint);
-                } else {
-                    throw new IllegalArgumentException("The file \"" + this.getCompleteName(fileName) + "\" won't be renamed because it doesn't match the " +
-                                                               "pattern.");
-                }
 
+                breakpoint = nameWithoutExtension.indexOf(fieldsSeparator);
+                if (breakpoint < 0) {
+                    //There isn't any more field. There only is the last field.
+                    keywordValue = nameWithoutExtension;
+                } else {
+                    keywordValue = nameWithoutExtension.substring(0, breakpoint);
+                }
                 fields.put(eachPatternKeyword, keywordValue);
 
-                source = source.substring(breakpoint + fieldsSeparator.length());
+                nameWithoutExtension = nameWithoutExtension.substring(breakpoint + fieldsSeparator.length());
             }
         }
 
