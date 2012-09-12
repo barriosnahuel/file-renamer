@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -50,8 +51,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <!-- @RunWith(SpringJUnit4ClassRunner.class) -->
-            <!-- @ContextConfiguration(locations = "classpath:/ctc-applicationContext-componenteTest.xml") -->
+            <!-- @RunWith(SpringJUnit4ClassRunner.class) --><!-- @ContextConfiguration(locations = "classpath:/ctc-applicationContext-componenteTest.xml") -->
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>3.1.1.RELEASE</version>
@@ -70,8 +70,7 @@
                 </configuration>
             </plugin>
             <plugin>
-                <!--To install source into local repository-->
-                <!--mvn source:jar install-->
+                <!--To install source into local repository--><!--mvn source:jar install-->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
