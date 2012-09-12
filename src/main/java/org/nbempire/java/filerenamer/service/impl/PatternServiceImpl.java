@@ -32,7 +32,7 @@ public class PatternServiceImpl implements PatternService {
         String fieldsSeparator = getFieldsSeparator(aPattern);
         thePattern.setFieldsSeparator(fieldsSeparator);
 
-        thePattern.setPatternsName(getPatternsName(aPattern, fieldsSeparator));
+        thePattern.setPatternsName(getPatternsName(aPattern));
         return thePattern;
     }
 
@@ -66,7 +66,7 @@ public class PatternServiceImpl implements PatternService {
      *
      * @since 0.2
      */
-    private List<String> getPatternsName(String pattern, String fieldsSeparator) {
+    private List<String> getPatternsName(String pattern) {
         List<String> patternsName = new ArrayList<String>();
         while (!pattern.equals("")) {
 
