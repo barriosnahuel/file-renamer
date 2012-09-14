@@ -14,7 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * Test for {@link FileNameServiceImpl}.
+ * Test for {@link org.nbempire.java.filerenamer.service.impl.FileNameServiceImpl}.
  *
  * @author Nahuel Barrios.
  */
@@ -22,6 +22,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = "classpath:/applicationContext-componenteTest.xml")
 public class FileNameServiceComponenteTest {
 
+    /**
+     * The class to test.
+     */
     private FileNameService service = new FileNameServiceImpl();
 
     @Test
@@ -98,7 +101,7 @@ public class FileNameServiceComponenteTest {
         String field1 = "artista";
         String field2 = "titulo";
 
-        FileName fileName = new FileName(field1 + "-" + field2, Extensions.mp3);
+        FileName fileName = new FileName(field1 + "---------" + field2, Extensions.mp3);
         String renamedFileName = service.rename(fileName, "%a - %t", "%t - %a");
         Assert.fail("Debería haber tirado una excepción, pero se renombró el archivo y quedó como: " + renamedFileName);
     }
