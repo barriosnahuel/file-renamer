@@ -12,14 +12,23 @@ package org.nbempire.java.filerenamer.domain;
  */
 public class FileName {
 
+    /**
+     * The name of the file <b>without</b> the file extension.
+     */
     private String name;
+
+    /**
+     * The file extension.
+     */
     private Extensions extension;
 
     /**
-     * A constructor method for the {@link FileName} type.
+     * A constructor method for the {@link org.nbempire.java.filerenamer.domain.FileName} type.
      *
      * @param name
+     *         String with the file name without the extension.
      * @param extension
+     *         The file extension.
      *
      * @since 0.1
      */
@@ -40,21 +49,9 @@ public class FileName {
     }
 
     /**
-     * Setter for the attribute of the entity.
-     *
-     * @param name
-     *         {@link String} the name to set.
-     *
-     * @since 0.1
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Accessor for the attribute of the entity.
      *
-     * @return {@link Extensions} the extension.
+     * @return {@link org.nbempire.java.filerenamer.domain.Extensions} the extension.
      *
      * @since 0.1
      */
@@ -62,23 +59,6 @@ public class FileName {
         return extension;
     }
 
-    /**
-     * Setter for the attribute of the entity.
-     *
-     * @param extension
-     *         {@link Extensions} the extension to set.
-     *
-     * @since 0.1
-     */
-    public void setExtension(Extensions extension) {
-        this.extension = extension;
-    }
-
-    /**
-     * @return
-     *
-     * @since 0.1
-     */
     @Override
     public String toString() {
         return "FileName [name=" + name + ", extension=" + extension + "]";
