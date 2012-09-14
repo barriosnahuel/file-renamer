@@ -106,4 +106,16 @@ public class FileNameServiceComponenteTest {
         Assert.fail("Debería haber tirado una excepción, pero se renombró el archivo y quedó como: " + renamedFileName);
     }
 
+    @Test
+    public void rename_with2patternsAndSecondWithLenghtLessThanLenghtOfFieldsSeparator_returnFileName() {
+        String field1 = "parte 1 con varias palabras";
+        String field2 = "02";
+
+        FileName fileName = new FileName(field1 + " --- " + field2, Extensions.mp3);
+        String newName = service.rename(fileName, "%a --- %t", "%t - %a");
+
+        Assert.assertNotNull(newName);
+        Assert.assertEquals(field2 + " - " + field1 + ".mp3", newName);
+    }
+
 }

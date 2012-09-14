@@ -4,17 +4,21 @@
  */
 package org.nbempire.java.filerenamer.service.impl;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-import org.nbempire.java.filerenamer.MainKeys;
 import org.nbempire.java.filerenamer.domain.Extensions;
 import org.nbempire.java.filerenamer.domain.Field;
 import org.nbempire.java.filerenamer.domain.FileName;
+import org.nbempire.java.filerenamer.domain.Pattern;
 import org.nbempire.java.filerenamer.service.FileNameService;
+import org.nbempire.java.filerenamer.service.PatternService;
 import org.springframework.stereotype.Service;
 
 /**
- * Implementation of the interface {@link FileNameService}.
+ * Implementation of the interface {@link org.nbempire.java.filerenamer.service.FileNameService}.
  *
  * @author Nahuel Barrios.
  * @since 0.1
@@ -22,24 +26,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class FileNameServiceImpl implements FileNameService {
 
-    public String rename(FileName fileName, String inputPattern, String outputPattern) {
-        String inputFieldsSeparator = this.getFieldsSeparator(inputPattern);
+    /**
+     * A service for the {@link org.nbempire.java.filerenamer.domain.Pattern} entity.
+     */
+    private PatternService patternService = new PatternServiceImpl();
 
-        List<String> inputPatternsName = this.getPatternsName(inputPattern);
+    public String rename(FileName fileName, String input, String output) {
+        Pattern inputPattern = patternService.createFrom(input);
 
-        Map<String, String> keysAndValues = this.getFieldsFromFileNameBasedOnPatternKeys(fileName, inputFieldsSeparator, inputPatternsName);
+        Map<String, String> keysAndValues = this.getFieldAndValues(fileName, inputPattern);
 
         SortedSet<Field> fields = new TreeSet<Field>();
-        for (String eachPatternName : inputPatternsName) {
-            fields.add(new Field(outputPattern, eachPatternName, keysAndValues.get(eachPatternName)));
+        for (String eachPatternName : inputPattern.getPatternsName()) {
+            fields.add(new Field(output, eachPatternName, keysAndValues.get(eachPatternName)));
         }
 
         String newName = "";
-        String outputFieldsSeparator = this.getFieldsSeparator(outputPattern);
+        Pattern outputPattern = patternService.createFrom(output);
         for (Field field : fields) {
-            newName += field.getValue() + outputFieldsSeparator;
+            newName += field.getValue() + outputPattern.getFieldsSeparator();
         }
-        newName = newName.substring(0, newName.length() - outputFieldsSeparator.length());
+        newName = newName.substring(0, newName.length() - outputPattern.getFieldsSeparator().length());
 
         if (fileName.getExtension() != null) {
             newName += '.' + fileName.getExtension().toString();
@@ -54,87 +61,38 @@ public class FileNameServiceImpl implements FileNameService {
     }
 
     /**
-     * Inspects the <code>pattern</code> to identify pattern's members.
-     *
-     * @param pattern
-     *         The pattern.
-     *
-     * @return List of Strings containing each identified pattern member.
-     *
-     * @since 0.1
-     */
-    private List<String> getPatternsName(String pattern) {
-        String tmp = pattern;
-
-        List<String> patternsName = new ArrayList<String>();
-        while (!tmp.equals("")) {
-
-            int firstBreakpoint = tmp.indexOf(MainKeys.SYMBOL_FIELDS_PREFFIX);
-            String aKey = tmp.substring(firstBreakpoint, firstBreakpoint + 2);
-
-            patternsName.add(aKey);
-
-            tmp = tmp.substring(firstBreakpoint + 2);
-        }
-
-        return patternsName;
-    }
-
-    /**
-     * Inspects the <code>pattern</code> to guess which is the fields separator.
-     *
-     * @param pattern
-     *         String with a pattern of a file name.
-     *
-     * @return The fields separator.
-     *
-     * @since 0.1
-     */
-    private String getFieldsSeparator(String pattern) {
-        String tmp = pattern;
-
-        int firstBreakpoint = pattern.indexOf(MainKeys.SYMBOL_FIELDS_PREFFIX);
-        tmp = tmp.substring(firstBreakpoint + 2);
-
-        return tmp.substring(0, tmp.indexOf(MainKeys.SYMBOL_FIELDS_PREFFIX));
-    }
-
-    /**
      * @param fileName
      *         The FileName to parse.
-     * @param fieldsSeparator
-     *         the fields separator from the specified <code>fileName</code>.
-     * @param patternKeys
-     *         List of Strings containing pattern keywords.
+     * @param input
+     *         The input pattern.
      *
      * @return Map containing a pair of patternKeyword-keywordValue.
      *
      * @since 0.1
      */
-    private Map<String, String> getFieldsFromFileNameBasedOnPatternKeys(FileName fileName, String fieldsSeparator, List<String> patternKeys) {
+    private Map<String, String> getFieldAndValues(FileName fileName, Pattern input) {
         Map<String, String> fields = new HashMap<String, String>();
 
         String nameWithoutExtension = fileName.getName();
         if (nameWithoutExtension != null) {
-            int breakpoint = nameWithoutExtension.indexOf(fieldsSeparator);
+            int breakpoint = nameWithoutExtension.indexOf(input.getFieldsSeparator());
             if (breakpoint < 0) {
                 throw new IllegalArgumentException("The file \"" + getCompleteName(fileName) + "\" won't be renamed because it doesn't match the " +
                                                            "pattern.");
             }
 
-            for (String eachPatternKeyword : patternKeys) {
+            for (String eachPatternKeyword : input.getPatternsName()) {
                 String keywordValue;
 
-                breakpoint = nameWithoutExtension.indexOf(fieldsSeparator);
+                breakpoint = nameWithoutExtension.indexOf(input.getFieldsSeparator());
                 if (breakpoint < 0) {
                     //There isn't any more field. There only is the last field.
                     keywordValue = nameWithoutExtension;
                 } else {
                     keywordValue = nameWithoutExtension.substring(0, breakpoint);
+                    nameWithoutExtension = nameWithoutExtension.substring(breakpoint + input.getFieldsSeparator().length());
                 }
                 fields.put(eachPatternKeyword, keywordValue);
-
-                nameWithoutExtension = nameWithoutExtension.substring(breakpoint + fieldsSeparator.length());
             }
         }
 
