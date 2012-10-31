@@ -153,4 +153,10 @@ public class FileRenamerComponenteTest {
         Assert.assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", numberOfParsedFiles, renamedFiles);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testDoMagic_withInvalidDirectoryPath_throwIllegalArgumentException() {
+        //noinspection ResultOfMethodCallIgnored
+        fileRenamer.doMagic("sarasa", "", "");
+    }
+
 }

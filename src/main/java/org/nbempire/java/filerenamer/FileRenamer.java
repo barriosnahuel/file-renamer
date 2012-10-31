@@ -48,6 +48,10 @@ public class FileRenamer {
         logger.debug("--> doMagic: directoryPath: " + directoryPath);
         File[] files = new File(directoryPath).listFiles();
 
+        if (files == null) {
+            throw new IllegalArgumentException("The specified directory path is invalid.");
+        }
+
         int counter = 0;
         while (counter < files.length) {
             File file = files[counter];
