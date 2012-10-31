@@ -8,6 +8,7 @@ import org.nbempire.java.boc6.console.ConsoleUtil;
 import org.nbempire.java.bocui.commandline.CommandLineKeys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 /**
@@ -36,9 +37,10 @@ public class Application {
 
         ConsoleUtil.startApplication();
 
+        AbstractApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
+
         if (arguments.length == 3) {
-            FileRenamer fileRenamer = (FileRenamer) new GenericXmlApplicationContext("/applicationContext.xml")
-                                                            .getBean("fileRenamer");
+            FileRenamer fileRenamer = context.getBean(FileRenamer.class);
 
             int updatedFiles = fileRenamer.doMagic(arguments[0], arguments[1], arguments[2]);
             if (updatedFiles == 0) {
