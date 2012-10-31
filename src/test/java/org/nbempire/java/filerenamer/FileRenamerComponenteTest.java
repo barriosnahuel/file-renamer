@@ -8,16 +8,20 @@ import java.io.File;
 
 import junit.framework.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Test for {@link FileRenamer}.
  *
  * @author Nahuel Barrios.
  */
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = "classpath:/applicationContext-componenteTest.xml")
+@RunWith(value = SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:/applicationContext-componenteTest.xml")
 public class FileRenamerComponenteTest {
 
     private static final String KEY_ARTIST = "artista";
@@ -31,8 +35,8 @@ public class FileRenamerComponenteTest {
     /**
      * The FileRenamer to test.
      */
-    //@Autowired
-    private FileRenamer fileRenamer = new FileRenamer();
+    @Autowired
+    private FileRenamer fileRenamer;
 
     /**
      * Test method for {@link org.nbempire.java.filerenamer.FileRenamer#doMagic(java.lang.String, java.lang.String, java.lang.String)} .

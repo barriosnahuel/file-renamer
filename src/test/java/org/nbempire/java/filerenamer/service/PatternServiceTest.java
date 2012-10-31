@@ -9,15 +9,20 @@ import java.util.List;
 
 import junit.framework.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.nbempire.java.filerenamer.domain.Pattern;
-import org.nbempire.java.filerenamer.service.impl.PatternServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Nahuel Barrios.
  * @since 0.2
  */
+@RunWith(value = SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:/applicationContext-componenteTest.xml")
 public class PatternServiceTest {
 
     /**
@@ -28,7 +33,8 @@ public class PatternServiceTest {
     /**
      * The service to test.
      */
-    private PatternService patternService = new PatternServiceImpl();
+    @Autowired
+    private PatternService patternService;
 
     /**
      * Test method for createFrom.

@@ -15,6 +15,7 @@ import org.nbempire.java.filerenamer.domain.FileName;
 import org.nbempire.java.filerenamer.domain.Pattern;
 import org.nbempire.java.filerenamer.service.FileNameService;
 import org.nbempire.java.filerenamer.service.PatternService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -29,7 +30,8 @@ public class FileNameServiceImpl implements FileNameService {
     /**
      * A service for the {@link org.nbempire.java.filerenamer.domain.Pattern} entity.
      */
-    private PatternService patternService = new PatternServiceImpl();
+    @Autowired
+    private PatternService patternService;
 
     public String rename(FileName fileName, String input, String output) {
         Pattern inputPattern = patternService.createFrom(input);

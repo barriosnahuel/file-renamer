@@ -10,6 +10,7 @@ import java.util.List;
 import org.nbempire.java.filerenamer.MainKeys;
 import org.nbempire.java.filerenamer.domain.Pattern;
 import org.nbempire.java.filerenamer.service.PatternService;
+import org.springframework.stereotype.Service;
 
 /**
  * Implementation of {@link PatternService}.
@@ -17,6 +18,7 @@ import org.nbempire.java.filerenamer.service.PatternService;
  * @author Nahuel Barrios.
  * @since 0.2
  */
+@Service
 public class PatternServiceImpl implements PatternService {
 
     /**

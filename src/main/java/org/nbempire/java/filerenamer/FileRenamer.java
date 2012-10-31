@@ -7,9 +7,10 @@ package org.nbempire.java.filerenamer;
 import java.io.File;
 
 import org.nbempire.java.filerenamer.service.FileNameService;
-import org.nbempire.java.filerenamer.service.impl.FileNameServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * The FileRenamer.
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
  * @author Nahuel Barrios.
  * @since 0.1
  */
+@Component
 public class FileRenamer {
 
     /**
@@ -24,15 +26,17 @@ public class FileRenamer {
      */
     final static Logger logger = LoggerFactory.getLogger(FileRenamer.class);
 
+    @Autowired
+    private FileNameService fileNameService;
+
     /**
-     * Main method of this FileRenamer that does all the magic to rename files. It renames every file under the specified
-     * <code>directoryPath</code>. It's necessary that all files match the <code>inputPattern</code> to make possible the rename action to
-     * the <code>outputPattern</code>.
+     * Main method of this FileRenamer that does all the magic to rename files. It renames every file under the specified {@code directoryPath}.
+     * It's necessary that all files match the {@code inputPattern} to make possible the rename action to the {@code outputPattern}.
      *
      * @param directoryPath
      *         String with the system directory to work with.
      * @param inputPattern
-     *         Input pattern specification of the files under the <code>directoryPath</code>.
+     *         Input pattern specification of the files under the {@code directoryPath}.
      * @param outputPattern
      *         The output pattern which will be used to rename the files.
      *
@@ -44,7 +48,6 @@ public class FileRenamer {
         logger.debug("--> doMagic: directoryPath: " + directoryPath);
         File[] files = new File(directoryPath).listFiles();
 
-        FileNameService fileNameService = new FileNameServiceImpl();
         int counter = 0;
         while (counter < files.length) {
             File file = files[counter];

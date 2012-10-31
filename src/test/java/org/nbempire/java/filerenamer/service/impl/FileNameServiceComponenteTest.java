@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.nbempire.java.filerenamer.domain.Extensions;
 import org.nbempire.java.filerenamer.domain.FileName;
 import org.nbempire.java.filerenamer.service.FileNameService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,14 +19,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * @author Nahuel Barrios.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(value = SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/applicationContext-componenteTest.xml")
 public class FileNameServiceComponenteTest {
 
     /**
      * The class to test.
      */
-    private FileNameService service = new FileNameServiceImpl();
+    @Autowired
+    private FileNameService service;
 
     @Test
     public void rename_withRightPatterns_returnCorrectFileName() {
