@@ -31,47 +31,12 @@ public class Field implements Comparable<Field> {
     /**
      * Accessor for the attribute of the entity.
      *
-     * @return {@link String} the key.
-     *
-     * @since 0.1
-     */
-    public String getKey() {
-        return key;
-    }
-
-    /**
-     * Setter for the attribute of the entity.
-     *
-     * @param key
-     *         {@link String} the key to set.
-     *
-     * @since 0.1
-     */
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    /**
-     * Accessor for the attribute of the entity.
-     *
      * @return {@link String} the value.
      *
      * @since 0.1
      */
     public String getValue() {
         return value;
-    }
-
-    /**
-     * Setter for the attribute of the entity.
-     *
-     * @param value
-     *         {@link String} the value to set.
-     *
-     * @since 0.1
-     */
-    public void setValue(String value) {
-        this.value = value;
     }
 
     @Override
@@ -82,7 +47,7 @@ public class Field implements Comparable<Field> {
     @Override
     public int compareTo(Field otherObject) {
         int firstIdx = sortPattern.indexOf(key);
-        int secondIdx = sortPattern.indexOf(otherObject.getKey());
+        int secondIdx = sortPattern.indexOf(otherObject.key);
 
         return new Integer(firstIdx).compareTo(secondIdx);
     }

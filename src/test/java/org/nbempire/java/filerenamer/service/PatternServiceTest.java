@@ -28,7 +28,7 @@ public class PatternServiceTest {
     /**
      * Class logger.
      */
-    final static Logger logger = LoggerFactory.getLogger(PatternServiceTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(PatternServiceTest.class);
 
     /**
      * The service to test.

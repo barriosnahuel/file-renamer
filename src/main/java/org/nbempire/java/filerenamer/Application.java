@@ -22,7 +22,7 @@ public class Application {
     /**
      * Class logger.
      */
-    final static Logger logger = LoggerFactory.getLogger(Application.class);
+    private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     /**
      * Main method to execute the application.

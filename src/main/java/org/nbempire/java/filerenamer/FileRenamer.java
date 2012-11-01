@@ -24,7 +24,7 @@ public class FileRenamer {
     /**
      * Class logger.
      */
-    final static Logger logger = LoggerFactory.getLogger(FileRenamer.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileRenamer.class);
 
     @Autowired
     private FileNameService fileNameService;

@@ -7,7 +7,7 @@ package org.nbempire.java.filerenamer.domain;
 /**
  * Available extensions that this version of the API is able to rename.
  * <p/>
- * This <code>enum</code> will be deprecated as soon as possible.
+ * This {@code enum} will be deprecated as soon as possible.
  *
  * @author Nahuel Barrios.
  * @since 0.1

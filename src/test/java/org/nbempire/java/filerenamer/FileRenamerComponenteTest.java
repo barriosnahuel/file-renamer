@@ -30,7 +30,7 @@ public class FileRenamerComponenteTest {
     /**
      * Class logger.
      */
-    final static Logger logger = LoggerFactory.getLogger(FileRenamerComponenteTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileRenamerComponenteTest.class);
 
     /**
      * The FileRenamer to test.
