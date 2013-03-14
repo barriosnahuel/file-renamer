@@ -4,11 +4,16 @@
  */
 package org.nbempire.java.filerenamer;
 
-import org.junit.Ignore;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.io.File;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Nahuel Barrios.
@@ -18,16 +23,25 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = "classpath:/applicationContext-componenteTest.xml")
 public class ApplicationComponentTest {
 
+    private boolean rollback;
+    private String rollbackPath;
+    private String rollbackOutputPattern;
+    private String rollbackInputPattern;
+
+    @Before
+    public void setUp() {
+        rollback = false;
+    }
+
     /**
      * Test method for main.
      */
     @Test(expected = IllegalArgumentException.class)
     public void main_withInvalidDirectoryPath_throwIllegalArgumentException() throws Exception {
-        Application.main(new String[]{"un path cualquiera", "%a - %t", "%t - %a"});
+        Application.main(new String[]{"any path", "%a - %t", "%t - %a"});
     }
 
     @Test
-    @Ignore
     public void main_withValidParameters_renameFiles() throws Exception {
         String fileSeparator = System.getProperty("file.separator");
 
@@ -36,11 +50,26 @@ public class ApplicationComponentTest {
 
         String inputPattern = "%a - %t";
         String outputPattern = "%t - %a";
-        Application.main(new String[]{path, inputPattern, outputPattern});
+        Application.main(new String[]{path, inputPattern, outputPattern, "it doesn't matter"});
 
-        //  TODO : Hacer el rollback, ver como hacer para que el System.exit() no me salga del test.
+        //  Sets rollback=true inmediately after conversion because if it fails because of an assertion then it tearDown method does nothing.
+        rollback = true;
 
-        ////  Rollback
-        //Application.main(new String[]{path, outputPattern, inputPattern});
+        String[] files = new File(path).list();
+        for (int index = 0; index < files.length; ) {
+            String eachFileName = files[index++];
+            assertEquals("titulo" + index + " - artista" + index + ".mp3", eachFileName);
+        }
+
+        rollbackPath = path;
+        rollbackOutputPattern = outputPattern;
+        rollbackInputPattern = inputPattern;
+    }
+
+    @After
+    public void tearDown() {
+        if (rollback) {
+            Application.main(new String[]{rollbackPath, rollbackOutputPattern, rollbackInputPattern, "it doesn't matter"});
+        }
     }
 }

@@ -39,7 +39,7 @@ public class Application {
 
         AbstractApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
 
-        if (arguments.length == 3) {
+        if (arguments.length >= 3) {
             FileRenamer fileRenamer = context.getBean(FileRenamer.class);
 
             int updatedFiles = fileRenamer.doMagic(arguments[0], arguments[1], arguments[2]);
@@ -51,10 +51,12 @@ public class Application {
         } else {
             logger.info("Se deben ingresar 3 parametros: path del directorio (relativo/absoluto); patron de entrada; patron de salida.");
             ConsoleUtil.printUsage(CommandLineKeys.JAVA_JAR_PREFFIX
-                                           + " FileRenamer.jar unDirectorio/otroDirectorio \"%a - %t\" \"%t - %a\"");
+                                   + " FileRenamer.jar unDirectorio/otroDirectorio \"%a - %t\" \"%t - %a\"");
         }
 
-        ConsoleUtil.exitApplication();
+        if (arguments.length == 3) {
+            ConsoleUtil.exitApplication();
+        }
     }
 
 }
