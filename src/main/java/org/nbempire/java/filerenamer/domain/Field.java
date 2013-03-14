@@ -44,6 +44,7 @@ public class Field implements Comparable<Field> {
         return "Field [key=" + key + ", value=" + value + "]";
     }
 
+    @SuppressWarnings("ParameterNameDiffersFromOverriddenParameter")
     @Override
     public int compareTo(Field otherObject) {
         int firstIdx = sortPattern.indexOf(key);
