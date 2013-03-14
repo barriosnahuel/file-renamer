@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * @author Nahuel Barrios.
- * @since 14
+ * @since 0.2
  */
 @RunWith(value = SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/applicationContext-componenteTest.xml")
