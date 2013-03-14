@@ -15,7 +15,7 @@ public class Field implements Comparable<Field> {
     private String value;
 
     /**
-     * A constructor method for the {@link Field} type.
+     * A constructor method for the Field type.
      *
      * @param fieldKey
      * @param fieldValue

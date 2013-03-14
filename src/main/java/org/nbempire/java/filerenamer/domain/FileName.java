@@ -23,7 +23,7 @@ public class FileName {
     private Extensions extension;
 
     /**
-     * A constructor method for the {@link org.nbempire.java.filerenamer.domain.FileName} type.
+     * A constructor method for the FileName type.
      *
      * @param name
      *         String with the file name without the extension.
