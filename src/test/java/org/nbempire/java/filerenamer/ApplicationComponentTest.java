@@ -46,10 +46,8 @@ public class ApplicationComponentTest {
 
     @Test
     public void main_withValidParameters_renameFiles() throws Exception {
-        String fileSeparator = System.getProperty("file.separator");
-
-        String path = System.getProperty("user.dir") + fileSeparator;
-        path += "src" + fileSeparator + "test" + fileSeparator + "resources" + fileSeparator + "test1";
+        String path = System.getProperty("user.dir") + File.separator;
+        path += "src" + File.separator + "test" + File.separator + "resources" + File.separator + "test1";
 
         String inputPattern = "%a - %t";
         String outputPattern = "%t - %a";
