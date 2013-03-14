@@ -4,9 +4,6 @@
  */
 package org.nbempire.java.filerenamer;
 
-import java.io.File;
-
-import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -14,6 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.io.File;
+
+import static org.junit.Assert.*;
 
 /**
  * Test for {@link FileRenamer}.
@@ -52,27 +53,27 @@ public class FileRenamerComponenteTest {
         String outputPattern = "%t - %a";
         int renamedFiles = fileRenamer.doMagic(path, inputPattern, outputPattern);
 
-        Assert.assertEquals(3, renamedFiles);
+        assertEquals(3, renamedFiles);
 
         File[] files = new File(path).listFiles();
-        Assert.assertNotNull(files);
-        Assert.assertEquals(3, files.length);
+        assertNotNull(files);
+        assertEquals(3, files.length);
 
         for (File eachFile : files) {
             String fileName = eachFile.getName();
 
             int indexOfArtist = fileName.indexOf(KEY_ARTIST);
             int indexOfTitle = fileName.indexOf(KEY_TITLE);
-            Assert.assertTrue("Se perdió la información del artista.", indexOfArtist >= 0);
-            Assert.assertTrue("Se perdió la información del título.", indexOfTitle >= 0);
+            assertTrue("Se perdió la información del artista.", indexOfArtist >= 0);
+            assertTrue("Se perdió la información del título.", indexOfTitle >= 0);
 
-            Assert.assertTrue("titulo debería haber quedado antes que artista", indexOfTitle < indexOfArtist);
+            assertTrue("titulo debería haber quedado antes que artista", indexOfTitle < indexOfArtist);
         }
 
         //  Rollback.
         logger.info("Rollback...");
         renamedFiles = fileRenamer.doMagic(path, outputPattern, inputPattern);
-        Assert.assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", 3, renamedFiles);
+        assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", 3, renamedFiles);
     }
 
     /**
@@ -89,27 +90,27 @@ public class FileRenamerComponenteTest {
         String outputPattern = "%t - %a";
         int renamedFiles = fileRenamer.doMagic(path, inputPattern, outputPattern);
 
-        Assert.assertEquals(3, renamedFiles);
+        assertEquals(3, renamedFiles);
 
         File[] files = new File(path).listFiles();
-        Assert.assertNotNull(files);
-        Assert.assertEquals(3, files.length);
+        assertNotNull(files);
+        assertEquals(3, files.length);
 
         for (File eachFile : files) {
             String fileName = eachFile.getName();
 
             int indexOfArtist = fileName.indexOf(KEY_ARTIST);
             int indexOfTitle = fileName.indexOf(KEY_TITLE);
-            Assert.assertTrue("Se perdió la información del artista.", indexOfArtist >= 0);
-            Assert.assertTrue("Se perdió la información del título.", indexOfTitle >= 0);
+            assertTrue("Se perdió la información del artista.", indexOfArtist >= 0);
+            assertTrue("Se perdió la información del título.", indexOfTitle >= 0);
 
-            Assert.assertTrue("titulo debería haber quedado antes que artista", indexOfTitle < indexOfArtist);
+            assertTrue("titulo debería haber quedado antes que artista", indexOfTitle < indexOfArtist);
         }
 
         //  Rollback.
         logger.info("Rollback...");
         renamedFiles = fileRenamer.doMagic(path, outputPattern, inputPattern);
-        Assert.assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", 3, renamedFiles);
+        assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", 3, renamedFiles);
     }
 
     /**
@@ -127,30 +128,30 @@ public class FileRenamerComponenteTest {
         int renamedFiles = fileRenamer.doMagic(path, inputPattern, outputPattern);
 
         int numberOfParsedFiles = 4;
-        Assert.assertEquals(numberOfParsedFiles, renamedFiles);
+        assertEquals(numberOfParsedFiles, renamedFiles);
 
         File[] files = new File(path).listFiles();
-        Assert.assertNotNull(files);
-        Assert.assertEquals(numberOfParsedFiles, files.length);
+        assertNotNull(files);
+        assertEquals(numberOfParsedFiles, files.length);
 
         for (File eachFile : files) {
             String fileName = eachFile.getName();
             if (fileName.indexOf('0') >= 0) {
-                Assert.assertEquals("artista0 _'- titulo0.mp3", fileName);
+                assertEquals("artista0 _'- titulo0.mp3", fileName);
             } else {
                 int indexOfArtist = fileName.indexOf(KEY_ARTIST);
                 int indexOfTitle = fileName.indexOf(KEY_TITLE);
-                Assert.assertTrue("Se perdió la información del artista.", indexOfArtist >= 0);
-                Assert.assertTrue("Se perdió la información del título.", indexOfTitle >= 0);
+                assertTrue("Se perdió la información del artista.", indexOfArtist >= 0);
+                assertTrue("Se perdió la información del título.", indexOfTitle >= 0);
 
-                Assert.assertTrue("titulo debería haber quedado antes que artista", indexOfTitle < indexOfArtist);
+                assertTrue("titulo debería haber quedado antes que artista", indexOfTitle < indexOfArtist);
             }
         }
 
         //  Rollback.
         logger.info("Rollback...");
         renamedFiles = fileRenamer.doMagic(path, outputPattern, inputPattern);
-        Assert.assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", numberOfParsedFiles, renamedFiles);
+        assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", numberOfParsedFiles, renamedFiles);
     }
 
     @Test(expected = IllegalArgumentException.class)
