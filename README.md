@@ -1,4 +1,4 @@
-fileRenamer (English)
+fileRenamer (English) [![Build Status](https://travis-ci.org/barriosnahuel/fileRenamer.png)](https://travis-ci.org/barriosnahuel/fileRenamer)
 ===========
 
 *FileRenamer* is a Java application that lets users rename a set of files from a specific pattern to a another one using the
@@ -12,7 +12,7 @@ Usage example:
 
 ------------------------------------------------------------
 
-fileRenamer (Español)
+fileRenamer (Español) [![Build Status](https://travis-ci.org/barriosnahuel/fileRenamer.png)](https://travis-ci.org/barriosnahuel/fileRenamer)
 ===========
 
 *FileRenamer* es una aplicación Java para ejecutar desde la línea de comandos que permite al usuario renombrar un set de archivos desde un patrón conocido a otro patrón distinto.
