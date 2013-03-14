@@ -12,6 +12,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -55,9 +58,11 @@ public class ApplicationComponentTest {
         //  Sets rollback=true inmediately after conversion because if it fails because of an assertion then it tearDown method does nothing.
         rollback = true;
 
-        String[] files = new File(path).list();
-        for (int index = 0; index < files.length; ) {
-            String eachFileName = files[index++];
+        List<String> filesList = new ArrayList<String>();
+        Collections.addAll(filesList, new File(path).list());
+        Collections.sort(filesList);
+        for (int index = 0; index < filesList.size(); ) {
+            String eachFileName = filesList.get(index++);
             assertEquals("titulo" + index + " - artista" + index + ".mp3", eachFileName);
         }
 
