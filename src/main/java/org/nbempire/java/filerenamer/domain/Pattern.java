@@ -14,27 +14,9 @@ import java.util.List;
  */
 public class Pattern {
 
-    private String fieldsSeparator;
     private List<String> patternsName;
 
-    /**
-     * s Accessor for the attribute of the entity.
-     *
-     * @return {@link String} the fieldsSeparator.
-     */
-    public String getFieldsSeparator() {
-        return fieldsSeparator;
-    }
-
-    /**
-     * Setter for the attribute of the entity.
-     *
-     * @param fieldsSeparator
-     *         {@link String} the fieldsSeparator to set.
-     */
-    public void setFieldsSeparator(String fieldsSeparator) {
-        this.fieldsSeparator = fieldsSeparator;
-    }
+    private List<String> fieldsSeparators;
 
     /**
      * Accessor for the attribute of the entity.
@@ -55,11 +37,11 @@ public class Pattern {
         this.patternsName = patternsName;
     }
 
-    @Override
-    public String toString() {
-        return "Pattern{" +
-                       "fieldsSeparator='" + fieldsSeparator + '\'' +
-                       ", patternsName=" + patternsName +
-                       '}';
+    public List<String> getFieldsSeparators() {
+        return fieldsSeparators;
+    }
+
+    public void setFieldsSeparators(List<String> fieldsSeparators) {
+        this.fieldsSeparators = fieldsSeparators;
     }
 }

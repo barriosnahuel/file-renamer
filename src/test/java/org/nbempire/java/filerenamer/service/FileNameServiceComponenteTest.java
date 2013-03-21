@@ -120,4 +120,30 @@ public class FileNameServiceComponenteTest {
         assertEquals(field2 + " - " + field1 + ".mp3", newName);
     }
 
+    @Test
+    public void rename_with3patternsAndFieldsWithoutWhitespaces_returnFileName() {
+        String field1 = "anArtist";
+        String field2 = "aSongName";
+        String field3 = "[some extra info to remove]";
+
+        FileName fileName = new FileName(field1 + " --- " + field2 + " " + field3, Extensions.mp3);
+        String newName = service.rename(fileName, "%a --- %t %c", "%t - %a");
+
+        assertNotNull(newName);
+        assertEquals(field2 + " - " + field1 + ".mp3", newName);
+    }
+
+    @Test
+    public void rename_with3patternsAndFieldsWithWhitespaces_returnFileName() {
+        String field1 = "an artist";
+        String field2 = "a song name";
+        String field3 = "[some extra info to remove]";
+
+        FileName fileName = new FileName(field1 + " --- " + field2 + " " + field3, Extensions.mp3);
+        String newName = service.rename(fileName, "%a --- %t [%c]", "%t - %a");
+
+        assertNotNull(newName);
+        assertEquals(field2 + " - " + field1 + ".mp3", newName);
+    }
+
 }
