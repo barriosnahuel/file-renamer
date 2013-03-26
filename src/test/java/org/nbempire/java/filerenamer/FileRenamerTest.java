@@ -45,10 +45,8 @@ public class FileRenamerTest {
      */
     @Test
     public void testDoMagic_forTest1WithRightPatterns_renameFiles() {
-        String fileSeparator = System.getProperty("file.separator");
-
-        String path = System.getProperty("user.dir") + fileSeparator;
-        path += "src" + fileSeparator + "test" + fileSeparator + "resources" + fileSeparator + "test1";
+        String path = System.getProperty("user.dir") + File.separator;
+        path += "src" + File.separator + "test" + File.separator + "resources" + File.separator + "test1";
 
         String inputPattern = "%a - %t";
         String outputPattern = "%t - %a";
@@ -82,10 +80,8 @@ public class FileRenamerTest {
      */
     @Test
     public void testDoMagic_forTest2WithRightPatterns_renameFiles() {
-        String fileSeparator = System.getProperty("file.separator");
-
-        String path = System.getProperty("user.dir") + fileSeparator;
-        path += "src" + fileSeparator + "test" + fileSeparator + "resources" + fileSeparator + "test2";
+        String path = System.getProperty("user.dir") + File.separator;
+        path += "src" + File.separator + "test" + File.separator + "resources" + File.separator + "test2";
 
         String inputPattern = "%a --- %t";
         String outputPattern = "%t - %a";
@@ -119,10 +115,8 @@ public class FileRenamerTest {
      */
     @Test
     public void testDoMagic_forTest3With1FileDoesntMatchPattern_renameAllFilesButThatOne() {
-        String fileSeparator = System.getProperty("file.separator");
-
-        String path = System.getProperty("user.dir") + fileSeparator;
-        path += "src" + fileSeparator + "test" + fileSeparator + "resources" + fileSeparator + "test3";
+        String path = System.getProperty("user.dir") + File.separator;
+        path += "src" + File.separator + "test" + File.separator + "resources" + File.separator + "test3";
 
         String inputPattern = "%a --- %t";
         String outputPattern = "%t - %a";
