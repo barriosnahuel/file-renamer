@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(value = SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/applicationContext-componenteTest.xml")
-public class FileNameServiceComponenteTest {
+public class FileNameServiceTest {
 
     /**
      * The class to test.
