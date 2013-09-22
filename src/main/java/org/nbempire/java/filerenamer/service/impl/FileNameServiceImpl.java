@@ -4,11 +4,6 @@
  */
 package org.nbempire.java.filerenamer.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 import org.nbempire.java.filerenamer.domain.Extensions;
 import org.nbempire.java.filerenamer.domain.Field;
 import org.nbempire.java.filerenamer.domain.FileName;
@@ -17,6 +12,12 @@ import org.nbempire.java.filerenamer.service.FileNameService;
 import org.nbempire.java.filerenamer.service.PatternService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * Implementation of the interface {@link org.nbempire.java.filerenamer.service.FileNameService}.
@@ -36,19 +37,21 @@ public class FileNameServiceImpl implements FileNameService {
     public String rename(FileName fileName, String input, String output) {
         Pattern inputPattern = patternService.createFrom(input);
 
-        Map<String, String> keysAndValues = this.getFieldAndValues(fileName, inputPattern);
+        Map<String, String> keysAndValues = getFieldAndValues(fileName, inputPattern);
 
         SortedSet<Field> fields = new TreeSet<Field>();
         for (String eachPatternName : inputPattern.getPatternsName()) {
-            fields.add(new Field(output, eachPatternName, keysAndValues.get(eachPatternName)));
+            if (output.contains(eachPatternName)) {
+                fields.add(new Field(output, eachPatternName, keysAndValues.get(eachPatternName)));
+            }
         }
 
         String newName = "";
         Pattern outputPattern = patternService.createFrom(output);
         for (Field field : fields) {
-            newName += field.getValue() + outputPattern.getFieldsSeparator();
+            newName += field.getValue() + outputPattern.getFieldsSeparators().get(0);
         }
-        newName = newName.substring(0, newName.length() - outputPattern.getFieldsSeparator().length());
+        newName = newName.substring(0, newName.length() - outputPattern.getFieldsSeparators().get(0).length());
 
         if (fileName.getExtension() != null) {
             newName += '.' + fileName.getExtension().toString();
@@ -77,23 +80,26 @@ public class FileNameServiceImpl implements FileNameService {
 
         String nameWithoutExtension = fileName.getName();
         if (nameWithoutExtension != null) {
-            int breakpoint = nameWithoutExtension.indexOf(input.getFieldsSeparator());
+            int breakpoint = nameWithoutExtension.indexOf(input.getFieldsSeparators().get(0));
             if (breakpoint < 0) {
                 throw new IllegalArgumentException("The file \"" + getCompleteName(fileName) + "\" won't be renamed because it doesn't match the " +
-                                                           "pattern.");
+                                                   "pattern.");
             }
 
-            for (String eachPatternKeyword : input.getPatternsName()) {
-                String keywordValue;
+            Iterator<String> iterator = input.getPatternsName().iterator();
+            for (int index = 0; iterator.hasNext(); index++) {
+                String eachPatternKeyword = iterator.next();
 
-                breakpoint = nameWithoutExtension.indexOf(input.getFieldsSeparator());
-                if (breakpoint < 0) {
-                    //There isn't any more field. There only is the last field.
-                    keywordValue = nameWithoutExtension;
-                } else {
+                String keywordValue;
+                if (iterator.hasNext()) {
+                    String fieldSeparator = input.getFieldsSeparators().get(index);
+                    breakpoint = nameWithoutExtension.indexOf(fieldSeparator);
                     keywordValue = nameWithoutExtension.substring(0, breakpoint);
-                    nameWithoutExtension = nameWithoutExtension.substring(breakpoint + input.getFieldsSeparator().length());
+                    nameWithoutExtension = nameWithoutExtension.substring(breakpoint + fieldSeparator.length());
+                } else {
+                    keywordValue = nameWithoutExtension;
                 }
+
                 fields.put(eachPatternKeyword, keywordValue);
             }
         }

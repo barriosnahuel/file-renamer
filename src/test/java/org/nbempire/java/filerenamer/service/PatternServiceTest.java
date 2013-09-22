@@ -4,10 +4,6 @@
  */
 package org.nbempire.java.filerenamer.service;
 
-import java.util.Iterator;
-import java.util.List;
-
-import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nbempire.java.filerenamer.domain.Pattern;
@@ -16,6 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.Iterator;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * @author Nahuel Barrios.
@@ -28,7 +29,7 @@ public class PatternServiceTest {
     /**
      * Class logger.
      */
-    private static final Logger logger = LoggerFactory.getLogger(PatternServiceTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PatternServiceTest.class);
 
     /**
      * The service to test.
@@ -44,17 +45,17 @@ public class PatternServiceTest {
         String inputPattern = "%a - %t";
 
         Pattern pattern = patternService.createFrom(inputPattern);
-        Assert.assertNotNull("pattern mustn't be null.", pattern);
-        Assert.assertEquals(" - ", pattern.getFieldsSeparator());
+        assertNotNull("pattern mustn't be null.", pattern);
+        assertEquals(" - ", pattern.getFieldsSeparators().get(0));
 
         List<String> patternsName = pattern.getPatternsName();
-        Assert.assertNotNull("patternsName mustn't be null.", patternsName);
-        Assert.assertEquals(2, patternsName.size());
+        assertNotNull("patternsName mustn't be null.", patternsName);
+        assertEquals(2, patternsName.size());
 
-        logger.debug("Patterns found:");
+        LOGGER.debug("Patterns found:");
         for (String eachPatternName : patternsName) {
-            logger.debug(eachPatternName);
-            Assert.assertEquals(2, eachPatternName.length());
+            LOGGER.debug(eachPatternName);
+            assertEquals(2, eachPatternName.length());
         }
     }
 
@@ -66,16 +67,16 @@ public class PatternServiceTest {
         String inputPattern = "%t - %a";
 
         Pattern pattern = patternService.createFrom(inputPattern);
-        Assert.assertNotNull("pattern mustn't be null.", pattern);
-        Assert.assertEquals(" - ", pattern.getFieldsSeparator());
+        assertNotNull("pattern mustn't be null.", pattern);
+        assertEquals(" - ", pattern.getFieldsSeparators().get(0));
 
         List<String> patternsName = pattern.getPatternsName();
-        Assert.assertNotNull("patternsName mustn't be null.", patternsName);
-        Assert.assertEquals(2, patternsName.size());
+        assertNotNull("patternsName mustn't be null.", patternsName);
+        assertEquals(2, patternsName.size());
 
         Iterator<String> iterator = patternsName.iterator();
-        Assert.assertEquals("%t", iterator.next());
-        Assert.assertEquals("%a", iterator.next());
+        assertEquals("%t", iterator.next());
+        assertEquals("%a", iterator.next());
     }
 
     /**
@@ -85,7 +86,59 @@ public class PatternServiceTest {
     public void createFrom_invalidInputBecauseItHasntPercentageSymbol_createsEntity() throws Exception {
         Pattern pattern = patternService.createFrom("a - t");
 
-        Assert.fail("Should throw an exception, but the return was: " + pattern);
+        fail("Should throw an exception, but the return was: " + pattern);
+    }
+
+    /**
+     * Test method for createFrom.
+     */
+    @Test
+    public void createFrom_validInputWithTwoDifferentFieldsSeparator_createsEntity() throws Exception {
+        String inputPattern = "%a - %b %c _-^%d [sarasa]%e";
+
+        Pattern pattern = patternService.createFrom(inputPattern);
+        assertNotNull("pattern mustn't be null.", pattern);
+        List<String> fieldsSeparators = pattern.getFieldsSeparators();
+        assertNotNull("List of fields separators musn't be null.", fieldsSeparators);
+        assertEquals(4, fieldsSeparators.size());
+
+        assertEquals(" - ", fieldsSeparators.get(0));
+        assertEquals(" ", fieldsSeparators.get(1));
+        assertEquals(" _-^", fieldsSeparators.get(2));
+        assertEquals(" [sarasa]", fieldsSeparators.get(3));
+
+
+        List<String> patternsName = pattern.getPatternsName();
+        assertNotNull("patternsName mustn't be null.", patternsName);
+        assertEquals(5, patternsName.size());
+
+        for (String eachPatternName : patternsName) {
+            assertEquals(2, eachPatternName.length());
+        }
+    }
+
+    /**
+     * Test method for createFrom.
+     */
+    @Test
+    public void createFrom_withCharactersToIgnoreAfterLastField_createsEntity() throws Exception {
+        String inputPattern = "%a [%b]";
+
+        Pattern pattern = patternService.createFrom(inputPattern);
+        assertNotNull("pattern mustn't be null.", pattern);
+        List<String> fieldsSeparators = pattern.getFieldsSeparators();
+        assertNotNull("List of fields separators musn't be null.", fieldsSeparators);
+        assertEquals(1, fieldsSeparators.size());
+
+        assertEquals(" [", fieldsSeparators.get(0));
+
+        List<String> patternsName = pattern.getPatternsName();
+        assertNotNull("patternsName mustn't be null.", patternsName);
+        assertEquals(2, patternsName.size());
+
+        for (String eachPatternName : patternsName) {
+            assertEquals(2, eachPatternName.length());
+        }
     }
 
 }

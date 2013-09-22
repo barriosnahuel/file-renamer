@@ -4,13 +4,13 @@
  */
 package org.nbempire.java.filerenamer.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.nbempire.java.filerenamer.MainKeys;
 import org.nbempire.java.filerenamer.domain.Pattern;
 import org.nbempire.java.filerenamer.service.PatternService;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementation of {@link PatternService}.
@@ -22,8 +22,7 @@ import org.springframework.stereotype.Service;
 public class PatternServiceImpl implements PatternService {
 
     /**
-     * The lenght of the pattern key used when specifing a pattern. It's 2 because user must use a {@code %} followed only by <b>one</b>
-     * character.
+     * The lenght of the pattern key used when specifing a pattern. It's 2 because user must use a {@code %} followed only by <b>one</b> character.
      */
     private static final int PATTERN_KEY_LENGTH = 2;
 
@@ -31,8 +30,8 @@ public class PatternServiceImpl implements PatternService {
     public Pattern createFrom(String aPattern) {
         Pattern thePattern = new Pattern();
 
-        String fieldsSeparator = getFieldsSeparator(aPattern);
-        thePattern.setFieldsSeparator(fieldsSeparator);
+        List<String> fieldsSeparator = getFieldsSeparator(aPattern);
+        thePattern.setFieldsSeparators(fieldsSeparator);
 
         thePattern.setPatternsName(getPatternsName(aPattern));
         return thePattern;
@@ -48,14 +47,27 @@ public class PatternServiceImpl implements PatternService {
      *
      * @since 0.2
      */
-    private String getFieldsSeparator(String pattern) {
+    private List<String> getFieldsSeparator(String pattern) {
         int firstBreakpoint = pattern.indexOf(MainKeys.SYMBOL_FIELDS_PREFFIX);
         if (firstBreakpoint < 0) {
             throw new IllegalArgumentException("Missing " + MainKeys.SYMBOL_FIELDS_PREFFIX + " preffix for pattern keys.");
         }
-        pattern = pattern.substring(firstBreakpoint + 2);
+        List<String> separators = new ArrayList<String>();
 
-        return pattern.substring(0, pattern.indexOf(MainKeys.SYMBOL_FIELDS_PREFFIX));
+        int beginIndexOfSeparator = firstBreakpoint + 2;
+        String pending = pattern.substring(beginIndexOfSeparator);
+
+        while (pending.length() > 0) {
+            firstBreakpoint = pending.indexOf(MainKeys.SYMBOL_FIELDS_PREFFIX);
+            if (firstBreakpoint >= 0) {
+                separators.add(pending.substring(0, firstBreakpoint));
+                pending = pending.substring(firstBreakpoint + 2);
+            } else {
+                break;
+            }
+        }
+
+        return separators;
     }
 
     /**
@@ -73,6 +85,9 @@ public class PatternServiceImpl implements PatternService {
         while (!pattern.equals("")) {
 
             int firstBreakpoint = pattern.indexOf(MainKeys.SYMBOL_FIELDS_PREFFIX);
+            if (firstBreakpoint < 0) {
+                break;
+            }
             String aKey = pattern.substring(firstBreakpoint, firstBreakpoint + PATTERN_KEY_LENGTH);
 
             patternsName.add(aKey);
