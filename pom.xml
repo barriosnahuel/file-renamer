@@ -7,7 +7,7 @@
     <version>0.2.2</version>
 
     <name>FileRenamer</name>
-    <description>Backend project to rename file's name.</description>
+    <description>API project to rename file's name.</description>
 
     <properties>
         <!--Setting this property only here is enough.-->
