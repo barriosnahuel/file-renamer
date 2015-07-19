@@ -10,7 +10,7 @@
 *FileRenamer* is a Java application that lets users rename a set of files from a specific pattern to a another one using the
 command line.
 
-##Usage
+## Usage
 * Generate a runnable .jar file with Eclipse.
 * From command line run:
 
