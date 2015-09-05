@@ -15,5 +15,14 @@ command line.
 
 > java -jar FileRenamer.jar aDirectory/otherDirectory "%a - %t" "%t - %a"
 
+## Contributing
+
+### Repo usage
+*Do not clone or push to* **master** *branch.*
+
+Create branch or fork from **develop**, then push or create pull requests (if you don't have access) to that branch.
+
+The repo uses [this branching model](http://nvie.com/posts/a-successful-git-branching-model/).
+
 ## Currently used by
 - [File Renamer SWT](https://github.com/barriosnahuel/file-renamer_SWT)
