@@ -23,13 +23,6 @@
             <version>3.1.1.RELEASE</version>
         </dependency>
 
-        <!--Own dependencies-->
-        <dependency>
-            <groupId>org.nbempire.java</groupId>
-            <artifactId>boc6</artifactId>
-            <version>0.1</version>
-        </dependency>
-
         <!--Logs-->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -57,14 +50,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>project.local</id>
-            <name>localRepository</name>
-            <url>file:${project.basedir}/localRepository</url>
-        </repository>
-    </repositories>
 
     <build>
         <plugins>

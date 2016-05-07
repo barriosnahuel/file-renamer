@@ -4,8 +4,6 @@
  */
 package org.nbempire.java.filerenamer;
 
-import org.nbempire.java.boc6.console.ConsoleUtil;
-import org.nbempire.java.bocui.commandline.CommandLineKeys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -27,15 +25,11 @@ public class Application {
     /**
      * Main method to execute the application.
      *
-     * @param arguments
-     *         program arguments. It should be three.
-     *
+     * @param arguments program arguments. It should be three.
      * @since 0.1
      */
     public static void main(String[] arguments) {
         // BasicConfigurator.configure();// Configuro Log4j.
-
-        ConsoleUtil.startApplication();
 
         AbstractApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
 
@@ -50,12 +44,11 @@ public class Application {
 
         } else {
             logger.info("Se deben ingresar 3 parametros: path del directorio (relativo/absoluto); patron de entrada; patron de salida.");
-            ConsoleUtil.printUsage(CommandLineKeys.JAVA_JAR_PREFFIX
-                                   + " FileRenamer.jar unDirectorio/otroDirectorio \"%a - %t\" \"%t - %a\"");
+            System.out.println("Usage: java -jar FileRenamer.jar unDirectorio/otroDirectorio \"%a - %t\" \"%t - %a\"");
         }
 
         if (arguments.length == 3) {
-            ConsoleUtil.exitApplication();
+            logger.info("Exit from application");
         }
     }
 
