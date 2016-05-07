@@ -62,6 +62,7 @@ public class ApplicationTest {
         List<String> filesList = new ArrayList<String>();
         Collections.addAll(filesList, new File(path).list());
         Collections.sort(filesList);
+
         for (int index = 0; index < filesList.size(); ) {
             String eachFileName = filesList.get(index++);
             assertEquals("titulo" + index + " - artista" + index + ".mp3", eachFileName);

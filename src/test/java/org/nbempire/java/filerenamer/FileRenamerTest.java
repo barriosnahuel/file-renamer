@@ -104,12 +104,12 @@ public class FileRenamerTest {
         String outputPattern = "%t - %a";
         int renamedFiles = fileRenamer.doMagic(path, inputPattern, outputPattern);
 
-        int numberOfParsedFiles = 4;
-        assertEquals(numberOfParsedFiles, renamedFiles);
+        final int EXPECTED_RENAMED_FILES = 3;
+        assertEquals(EXPECTED_RENAMED_FILES, renamedFiles);
 
         File[] files = new File(path).listFiles();
         assertNotNull(files);
-        assertEquals(numberOfParsedFiles, files.length);
+        assertEquals(4, files.length);
 
         for (File eachFile : files) {
             String fileName = eachFile.getName();
@@ -128,7 +128,38 @@ public class FileRenamerTest {
         //  Rollback.
         logger.info("Rollback...");
         renamedFiles = fileRenamer.doMagic(path, outputPattern, inputPattern);
-        assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", numberOfParsedFiles, renamedFiles);
+        assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", EXPECTED_RENAMED_FILES, renamedFiles);
+    }
+
+    /**
+     * Test method for {@link org.nbempire.java.filerenamer.FileRenamer#doMagic(java.lang.String, java.lang.String, java.lang.String)} .
+     */
+    @Test
+    public void testDoMagic_forTestHiddenFiles_renameFiles() {
+        String path = System.getProperty("user.dir") + File.separator;
+        path += "src" + File.separator + "test" + File.separator + "resources" + File.separator + "test-hidden-files";
+
+        File[] files = new File(path).listFiles();
+        assertNotNull("Test path must be a directory", files);
+        assertEquals(4, files.length);
+        assertEquals(".this-is-a-hidden-file", files[0].getName());
+
+        String inputPattern = "%a - %t";
+        String outputPattern = "%t - %a";
+        int renamedFiles = fileRenamer.doMagic(path, inputPattern, outputPattern);
+
+        final int EXPECTED_RENAMED_FILES = 3;
+        assertEquals(EXPECTED_RENAMED_FILES, renamedFiles);
+
+        files = new File(path).listFiles();
+        assertNotNull("Test path must be a directory", files);
+        assertEquals(4, files.length);
+        assertEquals(".this-is-a-hidden-file", files[0].getName());
+
+        //  Rollback.
+        logger.info("Rollback...");
+        renamedFiles = fileRenamer.doMagic(path, outputPattern, inputPattern);
+        assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", EXPECTED_RENAMED_FILES, renamedFiles);
     }
 
     private void check(File[] files) {

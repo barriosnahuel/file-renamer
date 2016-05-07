@@ -36,7 +36,7 @@ public class FileRenamer {
      * @param directoryPath String with the system directory to work with.
      * @param inputPattern  Input pattern specification of the files under the {@code directoryPath}.
      * @param outputPattern The output pattern which will be used to rename the files.
-     * @return The number of parsed files. <b>Not the number of renamed files.</b>
+     * @return The number of renamed files.
      * @since 0.1
      */
     int doMagic(String directoryPath, String inputPattern, String outputPattern) {
@@ -49,20 +49,23 @@ public class FileRenamer {
         }
 
         int counter = 0;
-        while (counter < files.length) {
-            File file = files[counter];
-
-            try {
-                String newName = fileNameService.rename(fileNameService.createFrom(file.getName()), inputPattern, outputPattern);
-                boolean renamed = file.renameTo(new File(file.getParent() + "/" + newName));
-                if (!renamed) {
-                    throw new IllegalArgumentException("The file: \"" + newName + "\" wasn't renamed.");
+        for (File file : files) {
+            if (file.isHidden()) {
+                logger.info("Skipping hidden file: " + file.getName());
+            } else {
+                try {
+                    String newName = fileNameService.rename(fileNameService.createFrom(file.getName()), inputPattern, outputPattern);
+                    boolean renamed = file.renameTo(new File(file.getParent() + "/" + newName));
+                    if (renamed) {
+                        counter++;
+                    } else {
+                        throw new IllegalArgumentException("The file: \"" + newName + "\" wasn't renamed.");
+                    }
+                } catch (IllegalArgumentException illegalArgumentException) {
+                    logger.info("The following file wasn't renamed: \"" + file.getName() + "\"");
+                    logger.warn(illegalArgumentException.getMessage());
                 }
-            } catch (IllegalArgumentException illegalArgumentException) {
-                logger.info("The following file wasn't renamed: \"" + file.getName() + "\"");
-                logger.warn(illegalArgumentException.getMessage());
             }
-            counter++;
         }
 
         logger.debug("<-- doMagic: directoryPath: " + directoryPath + "; " + counter + " renamed files.");
