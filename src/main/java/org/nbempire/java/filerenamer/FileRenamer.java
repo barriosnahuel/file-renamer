@@ -52,6 +52,8 @@ public class FileRenamer {
         for (File file : files) {
             if (file.isHidden()) {
                 logger.info("Skipping hidden file: " + file.getName());
+            } else if (file.isDirectory()) {
+                logger.info("Skipping directory: " + file.getName());
             } else {
                 try {
                     String newName = fileNameService.rename(fileNameService.createFrom(file.getName()), inputPattern, outputPattern);

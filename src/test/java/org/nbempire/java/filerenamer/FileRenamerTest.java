@@ -162,6 +162,39 @@ public class FileRenamerTest {
         assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", EXPECTED_RENAMED_FILES, renamedFiles);
     }
 
+    /**
+     * Test method for {@link org.nbempire.java.filerenamer.FileRenamer#doMagic(java.lang.String, java.lang.String, java.lang.String)} .
+     */
+    @Test
+    public void testDoMagic_forTestWithInnerDirectoryWithFilesToRename_renameFilesAtFirstDirectoryOnly() {
+        String path = System.getProperty("user.dir") + File.separator;
+        path += "src" + File.separator + "test" + File.separator + "resources" + File.separator + "test-with-inner-directory";
+
+        File[] files = new File(path).listFiles();
+        assertNotNull("Test path must be a directory", files);
+        assertEquals(3, files.length);
+        File directory = files[2];
+        assertEquals("do not rename", directory.getName());
+        assertTrue("Should be a directory", directory.isDirectory());
+
+        String inputPattern = "%a - %t";
+        String outputPattern = "%t - %a";
+        int renamedFiles = fileRenamer.doMagic(path, inputPattern, outputPattern);
+
+        final int EXPECTED_RENAMED_FILES = 2;
+        assertEquals(EXPECTED_RENAMED_FILES, renamedFiles);
+
+        files = new File(path).listFiles();
+        assertNotNull("Test path must be a directory", files);
+        assertEquals(3, files.length);
+        assertEquals("do not rename", files[0].getName());
+
+        //  Rollback.
+        logger.info("Rollback...");
+        renamedFiles = fileRenamer.doMagic(path, outputPattern, inputPattern);
+        assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", EXPECTED_RENAMED_FILES, renamedFiles);
+    }
+
     private void check(File[] files) {
         for (File eachFile : files) {
             String fileName = eachFile.getName();
