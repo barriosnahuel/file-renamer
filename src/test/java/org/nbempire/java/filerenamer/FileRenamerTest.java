@@ -58,16 +58,7 @@ public class FileRenamerTest {
         assertNotNull(files);
         assertEquals(3, files.length);
 
-        for (File eachFile : files) {
-            String fileName = eachFile.getName();
-
-            int indexOfArtist = fileName.indexOf(KEY_ARTIST);
-            int indexOfTitle = fileName.indexOf(KEY_TITLE);
-            assertTrue("Se perdió la información del artista.", indexOfArtist >= 0);
-            assertTrue("Se perdió la información del título.", indexOfTitle >= 0);
-
-            assertTrue("titulo debería haber quedado antes que artista", indexOfTitle < indexOfArtist);
-        }
+        check(files);
 
         //  Rollback.
         logger.info("Rollback...");
@@ -93,16 +84,7 @@ public class FileRenamerTest {
         assertNotNull(files);
         assertEquals(3, files.length);
 
-        for (File eachFile : files) {
-            String fileName = eachFile.getName();
-
-            int indexOfArtist = fileName.indexOf(KEY_ARTIST);
-            int indexOfTitle = fileName.indexOf(KEY_TITLE);
-            assertTrue("Se perdió la información del artista.", indexOfArtist >= 0);
-            assertTrue("Se perdió la información del título.", indexOfTitle >= 0);
-
-            assertTrue("titulo debería haber quedado antes que artista", indexOfTitle < indexOfArtist);
-        }
+        check(files);
 
         //  Rollback.
         logger.info("Rollback...");
@@ -147,6 +129,19 @@ public class FileRenamerTest {
         logger.info("Rollback...");
         renamedFiles = fileRenamer.doMagic(path, outputPattern, inputPattern);
         assertEquals("En el rollback deberían haberse modificado la misma cantidad de archivos.", numberOfParsedFiles, renamedFiles);
+    }
+
+    private void check(File[] files) {
+        for (File eachFile : files) {
+            String fileName = eachFile.getName();
+
+            int indexOfArtist = fileName.indexOf(KEY_ARTIST);
+            int indexOfTitle = fileName.indexOf(KEY_TITLE);
+            assertTrue("Se perdió la información del artista.", indexOfArtist >= 0);
+            assertTrue("Se perdió la información del título.", indexOfTitle >= 0);
+
+            assertTrue("titulo debería haber quedado antes que artista", indexOfTitle < indexOfArtist);
+        }
     }
 
     @Test(expected = IllegalArgumentException.class)

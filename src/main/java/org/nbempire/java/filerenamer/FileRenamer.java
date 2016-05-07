@@ -4,13 +4,13 @@
  */
 package org.nbempire.java.filerenamer;
 
-import java.io.File;
-
 import org.nbempire.java.filerenamer.service.FileNameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.io.File;
 
 /**
  * The FileRenamer.
@@ -33,22 +33,18 @@ public class FileRenamer {
      * Main method of this FileRenamer that does all the magic to rename files. It renames every file under the specified {@code directoryPath}.
      * It's necessary that all files match the {@code inputPattern} to make possible the rename action to the {@code outputPattern}.
      *
-     * @param directoryPath
-     *         String with the system directory to work with.
-     * @param inputPattern
-     *         Input pattern specification of the files under the {@code directoryPath}.
-     * @param outputPattern
-     *         The output pattern which will be used to rename the files.
-     *
+     * @param directoryPath String with the system directory to work with.
+     * @param inputPattern  Input pattern specification of the files under the {@code directoryPath}.
+     * @param outputPattern The output pattern which will be used to rename the files.
      * @return The number of parsed files. <b>Not the number of renamed files.</b>
-     *
      * @since 0.1
      */
-    public int doMagic(String directoryPath, String inputPattern, String outputPattern) {
+    int doMagic(String directoryPath, String inputPattern, String outputPattern) {
         logger.debug("--> doMagic: directoryPath: " + directoryPath);
         File[] files = new File(directoryPath).listFiles();
 
         if (files == null) {
+            logger.warn("The specified directory path is invalid.");
             throw new IllegalArgumentException("The specified directory path is invalid.");
         }
 
@@ -64,12 +60,12 @@ public class FileRenamer {
                 }
             } catch (IllegalArgumentException illegalArgumentException) {
                 logger.info("The following file wasn't renamed: \"" + file.getName() + "\"");
-                logger.info(illegalArgumentException.getMessage());
+                logger.warn(illegalArgumentException.getMessage());
             }
             counter++;
         }
 
-        logger.debug("<-- doMagic: directoryPath: " + directoryPath + "; Renombrados: " + counter + " archivos.");
+        logger.debug("<-- doMagic: directoryPath: " + directoryPath + "; " + counter + " renamed files.");
         return counter;
     }
 

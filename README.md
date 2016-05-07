@@ -10,8 +10,8 @@ command line.
 [![Build Status](https://travis-ci.org/barriosnahuel/file-renamer.svg?branch=master)](https://travis-ci.org/barriosnahuel/file-renamer)
 
 ## Usage
-* Generate a runnable .jar file with Eclipse.
-* From command line run:
+* Download latest [release](https://github.com/barriosnahuel/file-renamer/releases/latest).
+* From your command line just run:
 
 > java -jar FileRenamer.jar aDirectory/otherDirectory "%a - %t" "%t - %a"
 
@@ -23,6 +23,3 @@ command line.
 Create branch or fork from **develop**, then push or create pull requests (if you don't have access) to that branch.
 
 The repo uses [this branching model](http://nvie.com/posts/a-successful-git-branching-model/).
-
-## Currently used by
-- [File Renamer SWT](https://github.com/barriosnahuel/file-renamer_SWT)

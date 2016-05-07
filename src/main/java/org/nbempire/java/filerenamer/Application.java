@@ -29,8 +29,6 @@ public class Application {
      * @since 0.1
      */
     public static void main(String[] arguments) {
-        // BasicConfigurator.configure();// Configuro Log4j.
-
         AbstractApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
 
         if (arguments.length >= 3) {
@@ -38,13 +36,13 @@ public class Application {
 
             int updatedFiles = fileRenamer.doMagic(arguments[0], arguments[1], arguments[2]);
             if (updatedFiles == 0) {
-                logger.info("No se encontraron archivos para renombrar, o surgió algún error durante el proceso.");
+                logger.info("No files to rename or maybe there was an error during process.");
             }
-            logger.info("Se renombraron " + updatedFiles + " archivos.");
+            logger.info(updatedFiles + " files renamed.");
 
         } else {
-            logger.info("Se deben ingresar 3 parametros: path del directorio (relativo/absoluto); patron de entrada; patron de salida.");
-            System.out.println("Usage: java -jar FileRenamer.jar unDirectorio/otroDirectorio \"%a - %t\" \"%t - %a\"");
+            logger.info("Program requires 3 arguments: absolute/relative path to parent directory; input pattern and output pattern.");
+            System.out.println("Usage: java -jar FileRenamer.jar aDirectory/otherDirectory \"%a - %t\" \"%t - %a\"");
         }
 
         if (arguments.length == 3) {
