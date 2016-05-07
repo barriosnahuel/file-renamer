@@ -15,6 +15,11 @@ command line.
 
 > java -jar FileRenamer.jar aDirectory/otherDirectory "%a - %t" "%t - %a"
 
+**Notes**:
+- You must use just 1 letter for each variable.
+- You cannot use a simple white space as a separator because it can be confused.
+- Each of the 3 arguments are required.
+
 ## Contributing
 
 ### Repo usage
